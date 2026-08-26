@@ -3,53 +3,43 @@ import { FAQItem } from '../types';
 export const FAQ_DATA: FAQItem[] = [
   {
     category: 'booking',
-    question: 'How far in advance should I book my event?',
-    answer: 'We recommend booking 2 to 6 weeks in advance for weekend birthday parties and jumping castles, and 4 to 8 weeks in advance for peak season food truck catering and large corporate festivals. However, we also accommodate short-notice bookings whenever inventory and schedules permit.'
+    question: 'How does the booking and date selection work?',
+    answer: 'You can check real-time date availability and schedule your delivery directly through our integrated Calendly calendar. Select your target date and time, fill in your venue details, and receive an instant dispatch confirmation.'
   },
   {
-    category: 'booking',
-    question: 'How do I check availability for my specific date?',
-    answer: 'You can check real-time availability using our integrated date checker or directly launch the Calendly booking flow for any service or package. Simply pick your preferred date and time window to secure your slot or schedule an event consultation.'
+    category: 'equipment',
+    question: 'What space and power are required for the bouncy castle?',
+    answer: 'Our commercial bouncy castle requires a clear, level 16 ft x 16 ft footprint with 13 ft overhead vertical clearance. It runs on one standard 110V/15A household outdoor outlet within 50 feet of the blower. We provide the 50-foot commercial outdoor cord.'
   },
   {
-    category: 'booking',
-    question: 'How does the Calendly booking flow work?',
-    answer: 'When you choose a service or package, you are routed into our dedicated Calendly calendar where you select an available date and time, input your venue details and guest count, and receive an instant booking confirmation with our dispatch team.'
+    category: 'equipment',
+    question: 'Can the bouncy castle be set up on a driveway or concrete patio?',
+    answer: 'Yes! While natural grass with 18-inch forged steel stakes is ideal, we can safely set up on smooth concrete, pavers, or asphalt using 150 lb commercial sandbag anchor ballasts and protective ground tarps.'
   },
   {
-    category: 'booking',
-    question: 'Can I book multiple services together?',
-    answer: 'Yes! You can select multiple services (such as a Jumping Castle + Popcorn Cart + Food Truck) and request a unified Multi-Service Package. We coordinate delivery times, power logistics, and on-site setup so you only deal with one trusted contact.'
+    category: 'equipment',
+    question: 'How does the popcorn cart work and what is included?',
+    answer: 'Our vintage popcorn cart includes an 8oz commercial kettle, warming deck, stainless steel scoop, and enough pre-portioned gourmet corn, coconut oil, theater seasoning, and retro paper bags for 75 to 100 servings. Our delivery technician will demonstrate the simple 3-button operation in under two minutes upon arrival.'
   },
   {
     category: 'logistics',
-    question: 'Do you deliver and set up all equipment?',
-    answer: 'Yes. Our professional delivery crew handles all heavy lifting, site positioning, safety anchoring, inflation, electrical safety connections, and post-event teardown. You do not have to haul or assemble any heavy gear.'
-  },
-  {
-    category: 'equipment',
-    question: 'What space is required for a jumping castle?',
-    answer: 'Our Standard Jumping Castle requires a clear level footprint of at least 16 ft x 16 ft with 13 ft overhead clearance. Our Large Inflatables require at least 26 ft x 22 ft with 16 ft vertical clearance. All areas must be free of low-hanging branches, overhead wires, and debris.'
+    question: 'Do you deliver, set up, and take down the equipment?',
+    answer: 'Yes! Our crew arrives 45 to 60 minutes before your party start time to position, stake, inflate, and inspect the equipment. At your scheduled party conclusion, we return to handle complete packdown, deflation, and cart sanitization.'
   },
   {
     category: 'weather',
-    question: 'What happens if it rains or bad weather is forecasted?',
-    answer: 'Safety is paramount. For inflatables, operation is prohibited in sustained winds exceeding 15 mph or torrential thunderstorms. If poor weather is forecast on the morning of your event, we offer free rescheduling or full credit towards a future date.'
-  },
-  {
-    category: 'booking',
-    question: 'Can I cancel or reschedule my booking?',
-    answer: 'Yes. Rescheduling is completely free with at least 48 hours notice. Cancellations made prior to the cutoff receive flexible rescheduling credit or a refund per our straightforward cancellation policy.'
+    question: 'What is your bad-weather rescheduling policy?',
+    answer: 'We offer a 100% free bad-weather rescheduling guarantee. If sustained rain, thunderstorms, or high winds over 15 mph are forecast on the day of your event, you can reschedule to any available open date with zero change fees.'
   },
   {
     category: 'equipment',
-    question: 'Do you provide food truck operators and concession attendants?',
-    answer: 'Yes! All food truck bookings include fully certified culinary staff and truck operators. For popcorn and concession machines, you can choose DIY hire (with full operating demonstration provided) or add a friendly uniformed attendant.'
+    question: 'Do I need to clean the popcorn machine before pickup?',
+    answer: 'No! When your celebration wraps up, simply flip the warmer switch off. Our team performs full commercial kettle degreasing and EPA botanical sanitization back at our facility.'
   },
   {
     category: 'pricing',
-    question: 'Can I request a custom event package tailored to my budget?',
-    answer: 'Absolutely. Use our interactive Custom Package Builder or Contact Form to select the exact items you need, and our event specialists will tailor a bundled quote with volume discounts.'
+    question: 'Can I bundle both the bouncy castle and popcorn cart together?',
+    answer: 'Yes! Our Ultimate Bounce & Pop Party Combo bundles both units under a single coordinated delivery with exclusive combo savings.'
   }
 ];
 
@@ -58,33 +48,33 @@ export const TESTIMONIALS_DATA = [
     id: 't-1',
     author: 'Sarah Jenkins',
     role: 'Parent & Party Host',
-    eventType: '7th Birthday Party',
-    content: 'Booking through EventsRentals.io was effortless. The jumping castle was spotless, set up 45 minutes early, and the popcorn cart was a huge hit with all the parents and kids.',
+    eventType: '7th Birthday Party (25 Kids)',
+    content: 'The bouncy castle was spotlessly clean and set up 45 minutes before our guests arrived. The kids spent hours jumping and the warm popcorn was a huge hit with all the parents!',
     rating: 5,
-    location: 'Metro West Suburbs',
+    location: 'West Suburbs',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-    servicesUsed: ['Standard Jumping Castle', 'Classic Popcorn Cart']
+    servicesUsed: ['Commercial Bouncy Castle', 'Vintage Popcorn Cart']
   },
   {
     id: 't-2',
-    author: 'Marcus Vance',
-    role: 'People & Culture Director',
-    eventType: 'Annual Company Picnic (350 Guests)',
-    content: 'Coordinating two food trucks and a large obstacle inflatable could have been a logistical headache, but the EventsRentals team handled all power, site mapping, and staffing seamlessly.',
+    author: 'David Miller',
+    role: 'Dad & Neighborhood Organizer',
+    eventType: 'Community Summer Block Party',
+    content: 'Flawless communication and punctual delivery. The crew staked down the castle securely, showed us how to pop the corn in 2 minutes, and picked up right on schedule. Will book every year!',
     rating: 5,
-    location: 'Downtown Corporate Center',
+    location: 'Sunnyvale Estates',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-    servicesUsed: ['Food Truck Arrangements', 'Large Jumping Castle', 'Commercial Popcorn']
+    servicesUsed: ['Commercial Bouncy Castle', 'Vintage Popcorn Cart']
   },
   {
     id: 't-3',
     author: 'Elena Rodriguez',
     role: 'PTA Committee Chair',
-    eventType: 'Elementary School Spring Carnival',
-    content: 'Clean equipment, strict safety compliance documentation for our school district, and punctual friendly staff. We have already booked them for next year’s gala.',
+    eventType: 'Elementary School Fun Day',
+    content: 'Super clean, heavy-duty commercial vinyl and the popcorn aroma had lines around the corner. Booking through Calendly was so straightforward for our committee.',
     rating: 5,
     location: 'Oakridge Community School',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-    servicesUsed: ['Large Inflatable Slide', 'Popcorn Cart', 'Cotton Candy']
+    servicesUsed: ['Commercial Bouncy Castle', 'Vintage Popcorn Cart']
   }
 ];

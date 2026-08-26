@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Camera, Sparkles, X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { Camera, X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { GALLERY_DATA } from '../data/galleryData';
-import { useParallaxScroll } from '../hooks/useParallax';
 
 export const GallerySection: React.FC<{
   limit?: number;
@@ -10,18 +9,10 @@ export const GallerySection: React.FC<{
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
-  // Parallax scroll offsets for gallery depth
-  const parallaxOffsetA = useParallaxScroll(0.04, 24);
-  const parallaxOffsetB = useParallaxScroll(-0.03, 18);
-  const parallaxOffsetC = useParallaxScroll(0.02, 12);
-
   const categories = [
-    { id: 'all', label: 'All Event Moments' },
-    { id: 'jumping-castles', label: 'Castles & Inflatables' },
-    { id: 'food-trucks', label: 'Food Trucks & Catering' },
-    { id: 'popcorn-carts', label: 'Popcorn & Sweets' },
-    { id: 'corporate-events', label: 'Corporate & Festivals' },
-    { id: 'kids-parties', label: 'Kids Parties' },
+    { id: 'all', label: 'All Event Photos' },
+    { id: 'jumping-castles', label: 'Bouncy Castles' },
+    { id: 'popcorn-carts', label: 'Vintage Popcorn Carts' },
   ];
 
   const filteredItems = selectedCategory === 'all'
@@ -56,29 +47,29 @@ export const GallerySection: React.FC<{
     <div className="space-y-8">
       {showHeader && (
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            <Camera className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Real Event Showcase</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <Camera className="w-3.5 h-3.5 text-blue-700" />
+            <span>Verified Event Showcase</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
             See Our Setups in Action
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            From vibrant backyard birthday inflatables to gourmet food truck clusters and high-volume carnival popcorn carts.
+          <p className="text-slate-600 text-sm sm:text-base">
+            From backyard birthday bouncy castles to vintage movie-theater popcorn cart stations.
           </p>
         </div>
       )}
 
-      {/* Category Pills in Liquid Glass */}
+      {/* Category Pills */}
       <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
         {categories.map(cat => (
           <button
             key={cat.id}
             onClick={() => setSelectedCategory(cat.id)}
-            className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer backdrop-blur-xl hover:scale-105 active:scale-95 ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
               selectedCategory === cat.id
-                ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/20 border border-white/30'
-                : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white'
+                ? 'bg-[#0b192c] text-white shadow-sm'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
             }`}
           >
             {cat.label}
@@ -86,108 +77,101 @@ export const GallerySection: React.FC<{
         ))}
       </div>
 
-      {/* Gallery Grid in Liquid Glass with Parallax Depth */}
+      {/* Gallery Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {displayItems.map((item, idx) => {
-          // Staggered column parallax offset
-          const colIndex = idx % 3;
-          const currentParallax = colIndex === 0 ? parallaxOffsetA : colIndex === 1 ? parallaxOffsetB : parallaxOffsetC;
+        {displayItems.map((item, idx) => (
+          <div
+            key={item.id}
+            onClick={() => openLightbox(idx)}
+            className="group relative rounded-2xl overflow-hidden bg-slate-100 aspect-4/3 cursor-pointer shadow-sm border border-slate-200 hover:shadow-lg hover:border-blue-300 transition-all duration-200"
+          >
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
 
-          return (
-            <div
-              key={item.id}
-              onClick={() => openLightbox(idx)}
-              style={{ transform: `translate3d(0, ${currentParallax}px, 0)` }}
-              className="group relative rounded-3xl overflow-hidden bg-slate-900/60 aspect-4/3 cursor-pointer shadow-[0_15px_35px_rgba(0,0,0,0.6)] border border-white/15 hover:border-cyan-400/60 hover:shadow-[0_20px_45px_rgba(6,182,212,0.25)] hover:scale-[1.03] hover:-translate-y-1 transition-all duration-300 p-1 will-change-transform"
-            >
-              <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-90 group-hover:opacity-95 transition-opacity" />
+              <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/95 shadow-sm text-slate-900 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Eye className="w-4 h-4 text-slate-800" />
+              </div>
 
-                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all">
-                  <Eye className="w-4 h-4 text-cyan-300" />
-                </div>
-
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-300">
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-white space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black/50 text-blue-300 backdrop-blur-xs">
+                    {item.categoryLabel}
+                  </span>
+                  <span className="text-[11px] text-slate-300 font-medium">
                     {item.eventType}
                   </span>
-                  <h4 className="text-sm font-bold truncate leading-snug text-white group-hover:text-cyan-300 transition-colors">
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] text-slate-300 truncate">
-                    {item.serviceName}
-                  </p>
                 </div>
+                <h3 className="text-base font-bold leading-tight text-white group-hover:text-blue-300 transition-colors">
+                  {item.title}
+                </h3>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
       {/* Lightbox Modal */}
       {activeLightboxIndex !== null && (
         <div
           onClick={closeLightbox}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4"
         >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20 z-50 cursor-pointer"
-            aria-label="Close photo view"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={prevImage}
-            className="absolute left-4 sm:left-8 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20 z-50 cursor-pointer"
-            aria-label="Previous photo"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
           <div
             onClick={(e) => e.stopPropagation()}
-            className="max-w-4xl w-full bg-slate-950/90 rounded-3xl overflow-hidden shadow-2xl border border-white/20 relative"
+            className="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800"
           >
-            <div className="relative aspect-16/10 bg-black">
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close image preview"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <button
+              onClick={prevImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={nextImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            <div className="relative aspect-16/10 bg-black flex items-center justify-center">
               <img
                 src={displayItems[activeLightboxIndex].image}
                 alt={displayItems[activeLightboxIndex].title}
-                className="w-full h-full object-contain"
+                className="max-h-[75vh] w-full object-contain"
               />
             </div>
-            <div className="p-5 text-white bg-slate-900/90 backdrop-blur-md flex items-center justify-between border-t border-white/10">
+
+            <div className="p-5 bg-slate-900 text-white flex items-center justify-between">
               <div>
-                <span className="text-xs text-cyan-300 font-bold uppercase tracking-wider">
-                  {displayItems[activeLightboxIndex].eventType}
+                <span className="text-xs text-blue-400 font-bold uppercase">
+                  {displayItems[activeLightboxIndex].categoryLabel} • {displayItems[activeLightboxIndex].eventType}
                 </span>
-                <h3 className="text-lg font-bold text-white">
+                <h4 className="text-lg font-bold">
                   {displayItems[activeLightboxIndex].title}
-                </h3>
-                <p className="text-xs text-slate-300 mt-0.5">
-                  {displayItems[activeLightboxIndex].serviceName}
-                </p>
+                </h4>
               </div>
               <span className="text-xs text-slate-400 font-mono">
                 {activeLightboxIndex + 1} / {displayItems.length}
               </span>
             </div>
           </div>
-
-          <button
-            onClick={nextImage}
-            className="absolute right-4 sm:right-8 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20 z-50 cursor-pointer"
-            aria-label="Next photo"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
         </div>
       )}
     </div>

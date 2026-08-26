@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, Calendar, ArrowRight, ShieldCheck, Clock, CheckCircle2, 
-  ChevronRight, Star, Truck, Utensils, HelpCircle, ChevronDown, Check 
+  Calendar, ArrowRight, ShieldCheck, Clock, CheckCircle2, 
+  Star, HelpCircle, ChevronDown, Check, Layers, Award, Sparkles 
 } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
-import { EVENT_TYPES_DATA } from '../data/eventTypesData';
+import { PACKAGES_DATA } from '../data/packagesData';
 import { TESTIMONIALS_DATA, FAQ_DATA } from '../data/faqData';
 import { AvailabilityChecker } from '../components/AvailabilityChecker';
-import { MultiServiceCustomizer } from '../components/MultiServiceCustomizer';
 import { GallerySection } from '../components/GallerySection';
 import { SafetySection } from '../components/SafetySection';
-import { SmartEventPlanner } from '../components/SmartEventPlanner';
-import { useImagePreloader } from '../hooks/useImagePreloader';
-import { useParallaxScroll } from '../hooks/useParallax';
 import heroMontageImg from '../assets/images/regenerated_image_1787122820695.jpg';
 
 interface HomeViewProps {
@@ -26,21 +22,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
 }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Parallax scroll offsets for liquid glass depth
-  const heroImageParallax = useParallaxScroll(0.09, 50);
-  const badgeParallax = useParallaxScroll(-0.14, 40);
-  const ambientGlowParallax = useParallaxScroll(0.18, 70);
-
-  // Preload critical high-resolution hero and featured event images
-  const criticalHeroImages = [
-    heroMontageImg,
-    SERVICES_DATA[0]?.heroImage,
-    SERVICES_DATA[1]?.heroImage,
-    SERVICES_DATA[2]?.heroImage,
-  ].filter(Boolean);
-
-  const { isLoaded: isHeroImagesLoaded } = useImagePreloader(criticalHeroImages, { timeoutMs: 1800 });
-
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
@@ -49,291 +30,246 @@ export const HomeView: React.FC<HomeViewProps> = ({
     onOpenBookingModal(serviceId, date);
   };
 
-  const handleRequestCustomPackage = (selectedIds: string[]) => {
-    onOpenBookingModal(undefined, undefined, selectedIds);
-  };
-
   const trustHighlights = [
     {
-      title: 'Professional Setup & Rigging',
-      desc: 'Our trained crew handles precise on-site positioning, commercial anchoring, and electrical safety testing.'
+      title: 'Heavy-Duty 18oz Commercial Vinyl',
+      desc: 'Lead-free, flame-retardant commercial grade construction with deep 18" forged steel ground stakes.'
     },
     {
-      title: 'Reliable, Punctual Dispatch',
-      desc: 'Guaranteed arrival 45 to 90 minutes prior to your event start so everything is ready when guests arrive.'
+      title: 'Punctual Dispatch Guarantee',
+      desc: 'Our crew arrives 45–60 minutes before your party start time for inflation, anchoring, and testing.'
     },
     {
-      title: 'Hospital-Grade Sanitized Gear',
-      desc: 'All inflatables, concession kettles, and catering units undergo detailed sanitization before every hire.'
+      title: 'Hospital-Grade Sanitization',
+      desc: 'Units and popcorn kettles are thoroughly sanitized with non-toxic, kid-safe EPA botanical solutions.'
     },
     {
-      title: 'Easy Calendly Booking',
-      desc: 'Effortless date checking, instant scheduling flow, transparent requirements, and live confirmation.'
+      title: 'Direct Calendly Sync',
+      desc: 'Real-time equipment availability checker with zero double-booking risk and instant date hold.'
     },
     {
-      title: 'Flexible Event Solutions',
-      desc: 'From intimate 15-person birthday parties to multi-thousand guest community festivals, scaled to your needs.'
+      title: 'Free Bad-Weather Rescheduling',
+      desc: 'Zero-penalty date rescheduling guaranteed up to 7:00 AM on event day if severe storms occur.'
     },
     {
-      title: 'Customer-Focused Service',
-      desc: 'Transparent pricing guides, bad-weather rescheduling options, and proactive event dispatch coordination.'
+      title: 'All-Inclusive Supplies & Setup',
+      desc: 'Includes high-output safety blower, heavy cords, fresh gourmet corn, popping oil, and retro bags.'
     }
   ];
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-20">
-      {/* 1. HERO SECTION IN LIQUID GLASS */}
-      <section className="relative overflow-hidden pt-6 pb-12 lg:pt-12 lg:pb-20">
+      {/* 1. HERO SECTION - Crisp, High-Trust Slate Navy */}
+      <section className="relative pt-6 pb-8 lg:pt-10 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Col: Headlines & CTAs */}
-            <div className={`lg:col-span-7 space-y-6 text-center lg:text-left transition-all duration-700 ease-out ${
-              isHeroImagesLoaded ? 'opacity-100 translate-y-0' : 'opacity-90 translate-y-2'
-            }`}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-cyan-300 text-xs font-bold uppercase tracking-widest shadow-lg shadow-cyan-500/10">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400" />
-                <span>Your Complete Event Experience Partner</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Col: Headlines & Booking Actions */}
+            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+              {/* Trust Badge Pill - No Liability Claim */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4 text-blue-700" />
+                <span>Commercial Grade Equipment • Guaranteed On-Time Dispatch</span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-white">
-                MAKE YOUR EVENT <br />
-                <span className="bg-gradient-to-r from-cyan-400 via-indigo-300 to-pink-400 bg-clip-text text-transparent drop-shadow-sm">
-                  UNFORGETTABLE
-                </span>
+              {/* Main Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-[#0b192c]">
+                COMMERCIAL BOUNCY CASTLES &amp; VINTAGE POPCORN CARTS
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
-                Everything you need to bring your event to life — from food trucks and jumping castles to popcorn carts and more.
+              {/* Clean Subhead */}
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+                Make your celebration unforgettable. Heavy-duty sanitized bouncy castles and classic movie-theater popcorn carts, delivered and safely anchored for your event.
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <button
                   onClick={() => onOpenBookingModal()}
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:opacity-95 active:scale-95 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 group cursor-pointer border border-white/20"
+                  className="w-full sm:w-auto px-8 py-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-base rounded-xl shadow-lg shadow-slate-900/15 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
                 >
-                  <Calendar className="w-5 h-5 text-white" />
-                  <span>Book Your Event</span>
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  <Calendar className="w-5 h-5 text-blue-400" />
+                  <span>Check Dates &amp; Book</span>
+                  <ArrowRight className="w-5 h-5" />
                 </button>
 
                 <button
-                  onClick={() => onNavigate('services')}
-                  className="w-full sm:w-auto px-7 py-4 bg-white/10 hover:bg-white/15 backdrop-blur-xl text-white font-bold text-base rounded-2xl border border-white/20 shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  onClick={() => onNavigate('packages')}
+                  className="w-full sm:w-auto px-7 py-4 bg-white hover:bg-slate-50 text-[#0b192c] font-bold text-base rounded-xl border border-slate-300 shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>Explore Services</span>
-                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                  <Sparkles className="w-5 h-5 text-blue-700" />
+                  <span>View Party Combo</span>
                 </button>
               </div>
 
-              {/* Quick trust metrics in Liquid Glass */}
-              <div className="pt-6 grid grid-cols-3 gap-3 border-t border-white/10 text-left max-w-lg mx-auto lg:mx-0">
-                <div className="bg-white/5 backdrop-blur-md p-3 rounded-2xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.03] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-[0_8px_20px_rgba(6,182,212,0.15)]">
-                  <h4 className="text-2xl font-black bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">100%</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">Commercial Sanitized</p>
+              {/* 4 Trust Metrics */}
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-slate-200 text-left max-w-xl mx-auto lg:mx-0">
+                <div
+                  onClick={() => onNavigate('safety')}
+                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                >
+                  <span className="text-xs font-bold uppercase text-blue-900 block">Rigging</span>
+                  <p className="text-[11px] text-slate-600 mt-0.5">18&quot; Steel Stakes →</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-md p-3 rounded-2xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.03] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-[0_8px_20px_rgba(6,182,212,0.15)]">
-                  <h4 className="text-2xl font-black bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">On-Time</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">Dispatch Guarantee</p>
+                <div
+                  onClick={() => onNavigate('how-it-works')}
+                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                >
+                  <span className="text-xs font-bold uppercase text-blue-900 block">Punctual</span>
+                  <p className="text-[11px] text-slate-600 mt-0.5">45m Early Setup →</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-md p-3 rounded-2xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.03] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-[0_8px_20px_rgba(6,182,212,0.15)]">
-                  <h4 className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Calendly</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">Live Calendar Sync</p>
+                <div
+                  onClick={() => onNavigate('safety')}
+                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                >
+                  <span className="text-xs font-bold uppercase text-blue-900 block">Sanitized</span>
+                  <p className="text-[11px] text-slate-600 mt-0.5">100% Clean Gear →</p>
+                </div>
+                <div
+                  onClick={() => onNavigate('reviews')}
+                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                >
+                  <span className="text-xs font-bold uppercase text-blue-900 block">Rating</span>
+                  <p className="text-[11px] text-slate-600 mt-0.5">5.0★ Reviews →</p>
                 </div>
               </div>
             </div>
 
-            {/* Right Col: Sleek Liquid Glass Card & Imagery Montage with 0 CLS preloader & Parallax Depth */}
-            <div className={`lg:col-span-5 relative transition-all duration-700 ease-out ${
-              isHeroImagesLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-80 translate-y-3 scale-[0.98]'
-            }`}>
+            {/* Right Col: Hero Visual Card */}
+            <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Parallax Ambient Glow Orb behind glass */}
-                <div
-                  className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/20 via-indigo-500/20 to-fuchsia-500/20 rounded-3xl blur-2xl pointer-events-none transition-transform duration-200 ease-out will-change-transform"
-                  style={{ transform: `translate3d(0, ${ambientGlowParallax}px, 0)` }}
-                />
-
-                {/* Main hero image card with parallax translation, liquid glass border, and fixed aspect-4/3 */}
-                <div
-                  className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/20 bg-slate-900/80 backdrop-blur-xl aspect-4/3 p-2 transition-transform duration-200 ease-out will-change-transform"
-                  style={{ transform: `translate3d(0, ${heroImageParallax}px, 0)` }}
-                >
+                <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-white aspect-4/3 p-2">
                   <div className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-900">
-                    {/* Liquid Glass Shimmer Placeholder during preload */}
-                    {!isHeroImagesLoaded && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 animate-pulse flex items-center justify-center">
-                        <div className="w-10 h-10 rounded-full border-2 border-cyan-400/40 border-t-cyan-400 animate-spin" />
-                      </div>
-                    )}
-
                     <img
                       src={heroMontageImg}
-                      alt="Professionally organized party with jumping castle, food trucks, and happy families"
-                      className={`w-full h-full object-cover transition-opacity duration-700 ${
-                        isHeroImagesLoaded ? 'opacity-100' : 'opacity-0'
-                      }`}
+                      alt="Commercial Bouncy Castle and Vintage Popcorn Cart Setup"
+                      className="w-full h-full object-cover"
                       loading="eager"
-                      fetchPriority="high"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
-                    <div className={`absolute bottom-4 left-4 right-4 text-white transition-all duration-500 delay-100 ${
-                      isHeroImagesLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                    }`}>
-                      <div className="inline-block bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full mb-1 border border-white/20">
-                        Turnkey Setup
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="inline-block bg-blue-600 text-white text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md mb-1">
+                        Turnkey Party Equipment
                       </div>
-                      <p className="font-bold text-sm text-slate-100">Clean inflatables, gourmet food & seamless flow</p>
+                      <p className="font-bold text-sm text-white">Commercial Inflatables &amp; Fresh Hot Popcorn</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating Liquid Glass Badge 2: Punctual Delivery with Inverse Parallax Speed */}
-                <div
-                  className={`absolute -top-4 -right-4 sm:-right-6 bg-slate-950/80 backdrop-blur-2xl rounded-2xl p-3 shadow-[0_15px_35px_rgba(0,0,0,0.6)] border border-white/20 flex items-center gap-2.5 transition-all duration-500 delay-200 will-change-transform ${
-                    isHeroImagesLoaded ? 'opacity-100' : 'opacity-0 -translate-y-2'
-                  }`}
-                  style={{ transform: `translate3d(0, ${badgeParallax}px, 0)` }}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold shrink-0">
+                {/* Floating Verified Badge */}
+                <div className="absolute -top-3 -right-3 bg-white rounded-2xl p-3 shadow-lg border border-slate-200 flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold shrink-0">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-white">100% Inspected & Ready</p>
-                    <p className="text-[10px] text-slate-400">Safe ground anchoring</p>
+                    <p className="text-xs font-bold text-[#0b192c]">Safety Anchored</p>
+                    <p className="text-[10px] text-slate-500">Commercial turf stakes</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Availability Checker Bar in Liquid Glass */}
-          <div className="mt-12 sm:mt-16">
+          {/* Availability Checker Bar */}
+          <div className="mt-12 sm:mt-14">
             <AvailabilityChecker onCheckAvailability={handleDateCheck} />
           </div>
         </div>
       </section>
 
-      {/* 2. TRUSTED / QUALITY STATEMENT LIQUID BANNER */}
-      <section className="bg-white/5 backdrop-blur-2xl text-white py-8 border-y border-white/10 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-                The EventsRentals.io Commitment
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
-                “Tell us what you&apos;re planning. We&apos;ll help make it happen.”
-              </h3>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
-                <Check className="w-4 h-4 text-cyan-400" />
-                <span>Commercial Grade Equipment</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
-                <Check className="w-4 h-4 text-cyan-400" />
-                <span>Dedicated Single Contact</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
-                <Check className="w-4 h-4 text-cyan-400" />
-                <span>Flexible Weather Rescheduling</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CORE SERVICES OVERVIEW & FEATURED SERVICES */}
+      {/* 2. THE 2 CORE SERVICES CATALOG */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Core Event Services</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+              <Layers className="w-3.5 h-3.5 text-blue-700" />
+              <span>Our 2 Rental Services</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Curated Event Solutions
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
+              Featured Party Rentals
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base max-w-2xl animate-fade-in-up">
-              From gourmet food truck catering to commercial jumping castles and nostalgic popcorn carts, choose the individual services you need or bundle them together.
+            <p className="text-slate-600 text-sm sm:text-base max-w-2xl">
+              Clean commercial equipment with transparent space and power requirements. Delivered and set up by our dispatch crew.
             </p>
           </div>
 
           <button
             onClick={() => onNavigate('services')}
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors group cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700 hover:text-blue-800 transition-colors group cursor-pointer"
           >
-            <span>View Full Catalog</span>
+            <span>View Full Specifications</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
 
-        {/* Services Grid with Liquid Glass Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {SERVICES_DATA.slice(0, 6).map(service => (
+        {/* 2 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {SERVICES_DATA.map((service) => (
             <div
               key={service.id}
-              className="bg-slate-950/60 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:border-cyan-400/60 hover:shadow-[0_25px_50px_-10px_rgba(6,182,212,0.25)] hover:scale-[1.02] hover:-translate-y-1.5 transition-all duration-300 flex flex-col group relative"
+              className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col group"
             >
-              {/* Subtle top ambient lighting sheen on hover */}
-              <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
               {/* Card Image */}
-              <div className="relative aspect-16/10 overflow-hidden bg-slate-900">
+              <div className="relative aspect-16/10 overflow-hidden bg-slate-100">
                 <img
                   src={service.heroImage}
                   alt={service.name}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
                 {service.badge && (
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold uppercase px-2.5 py-1 rounded-lg shadow-md border border-white/20">
+                  <div className="absolute top-3 left-3 bg-[#0b192c] text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-md shadow-md border border-slate-800">
                     {service.badge}
                   </div>
                 )}
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-black/60 backdrop-blur-md rounded border border-white/10 text-cyan-300">
-                    {service.category}
-                  </span>
+                <div className="absolute bottom-3 left-4 right-4 text-white">
+                  <h3 className="text-xl font-bold leading-snug">{service.name}</h3>
                 </div>
               </div>
 
               {/* Card Body */}
-              <div className="p-6 flex flex-col justify-between grow space-y-4 relative z-10">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
-                    {service.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2">
-                    {service.shortDescription}
-                  </p>
+              <div className="p-6 flex flex-col justify-between grow space-y-5">
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {service.shortDescription}
+                </p>
+
+                {/* Key Specs */}
+                <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+                  {service.specifications.slice(0, 4).map((spec, i) => (
+                    <div key={i}>
+                      <span className="text-[10px] text-slate-500 block uppercase font-bold">{spec.label}</span>
+                      <span className="font-semibold text-slate-800 text-xs">{spec.value}</span>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Key specs pill */}
-                <div className="bg-white/5 backdrop-blur-md rounded-xl p-2.5 text-xs text-slate-300 space-y-1 border border-white/10 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-colors">
-                  <p className="font-semibold text-cyan-400 text-[11px] uppercase tracking-wider">
-                    Recommended For:
-                  </p>
-                  <p className="text-[11px] text-slate-300 truncate">
-                    {service.recommendedFor.slice(0, 3).join(', ')}
-                  </p>
+                {/* What's Included Bullets */}
+                <div className="space-y-1.5">
+                  <p className="text-xs font-bold text-[#0b192c] uppercase tracking-wider">What&apos;s Included:</p>
+                  <ul className="text-xs text-slate-600 space-y-1">
+                    {service.features.slice(0, 3).map((f, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
                 {/* Card Actions */}
-                <div className="pt-2 flex items-center gap-2 border-t border-white/10">
+                <div className="pt-3 flex items-center gap-3 border-t border-slate-100">
                   <button
                     onClick={() => onNavigate('service-detail', service.id)}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all text-center cursor-pointer border border-white/10 hover:border-white/25 active:scale-95"
+                    className="flex-1 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors text-center cursor-pointer border border-slate-200"
                   >
-                    View Details
+                    Details &amp; Specs
                   </button>
                   <button
                     onClick={() => onOpenBookingModal(service.id)}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:opacity-95 active:scale-95 text-white font-bold text-xs transition-all text-center shadow-md cursor-pointer border border-white/20"
+                    className="flex-1 py-3 px-4 rounded-xl bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-xs transition-all text-center shadow-sm cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    {service.ctaText}
+                    <Calendar className="w-3.5 h-3.5 text-blue-400" />
+                    <span>{service.ctaText}</span>
                   </button>
                 </div>
               </div>
@@ -342,23 +278,65 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 4. MULTI-SERVICE PACKAGE CUSTOMIZER */}
+      {/* 3. ULTIMATE PARTY COMBO FEATURE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MultiServiceCustomizer onRequestPackage={handleRequestCustomPackage} />
+        {PACKAGES_DATA.slice(0, 1).map((pkg) => (
+          <div
+            key={pkg.id}
+            className="bg-gradient-to-br from-[#0b192c] via-[#122543] to-[#0b192c] text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-8"
+          >
+            <div className="space-y-4 max-w-2xl text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{pkg.badge}</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                {pkg.name}
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                {pkg.description}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300 pt-2">
+                {pkg.includedServices.slice(0, 4).map((inc, i) => (
+                  <div key={i} className="flex items-center gap-2 justify-center lg:justify-start">
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                    <span>{inc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 shrink-0">
+              <button
+                onClick={() => onOpenBookingModal(undefined, undefined, ['standard-jumping-castle', 'standard-popcorn-cart'])}
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Calendar className="w-5 h-5" />
+                <span>Book Combo on Calendly</span>
+              </button>
+              <button
+                onClick={() => onNavigate('packages')}
+                className="text-xs text-slate-300 hover:text-white font-semibold underline underline-offset-4 cursor-pointer"
+              >
+                View combo details &amp; pricing →
+              </button>
+            </div>
+          </div>
+        ))}
       </section>
 
-      {/* 5. HOW BOOKING WORKS (01 - 04 STEPS) */}
+      {/* 4. HOW BOOKING WORKS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            <Clock className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Frictionless 4-Step Process</span>
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <Clock className="w-3.5 h-3.5 text-blue-700" />
+            <span>Frictionless 4-Step Flow</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            How Booking Works
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
+            How Rental Booking Works
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            We make event hire effortless. From initial date check to on-site rigging, your event is managed by professionals.
+          <p className="text-slate-600 text-sm sm:text-base">
+            From live calendar reservation to certified on-site rigging, your event logistics are simple.
           </p>
         </div>
 
@@ -366,37 +344,36 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {[
             {
               step: '01',
-              title: 'Choose Your Services',
-              desc: 'Browse individual inflatables, food trucks, concession carts, or configure a multi-service package.'
+              title: 'Choose Castle or Cart',
+              desc: 'Select our commercial bouncy castle, vintage popcorn cart, or save with the 2-in-1 combo.'
             },
             {
               step: '02',
-              title: 'Select Your Date',
-              desc: 'Check live dispatch availability through our synchronized Calendly scheduling system.'
+              title: 'Select Date in Calendly',
+              desc: 'Check live dispatch schedule and hold your delivery window with zero double-booking.'
             },
             {
               step: '03',
-              title: 'Confirm Event Details',
-              desc: 'Provide your guest count, venue surface requirements, access notes, and arrival time.'
+              title: 'Confirm Setup Specs',
+              desc: 'Specify grass or concrete surface, standard power outlet proximity, and party start time.'
             },
             {
               step: '04',
-              title: 'We Handle the Setup',
-              desc: 'Our team arrives 45–90 min early to deliver, inflate, stake, and inspect all equipment safely.'
+              title: 'We Deliver & Rig Safely',
+              desc: 'Uniformed crew arrives 45–60 min early to inflate, anchor, test power, and demonstrate operation.'
             }
           ].map((item, idx) => (
             <div
               key={idx}
-              className="bg-slate-950/60 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] relative group hover:border-cyan-400/50 hover:shadow-[0_20px_40px_rgba(6,182,212,0.2)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-colors pointer-events-none" />
-              <span className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent font-heading block mb-3 group-hover:scale-105 transition-transform origin-left">
+              <span className="text-3xl sm:text-4xl font-black text-blue-900 block mb-2 font-mono">
                 {item.step}
               </span>
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+              <h3 className="text-base font-bold text-[#0b192c] mb-2">
                 {item.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -404,74 +381,51 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 6. EVENT TYPES ("PERFECT FOR EVERY EVENT") */}
+      {/* 5. PHOTO GALLERY PREVIEW */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Versatile Entertainment</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            PERFECT FOR EVERY EVENT
-          </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            Tailored packages and compliant setups designed for private backyards, public parks, corporate grounds, and school facilities.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {EVENT_TYPES_DATA.map(event => (
-            <div
-              key={event.id}
-              onClick={() => onOpenBookingModal(undefined, undefined, undefined)}
-              className="group relative rounded-3xl overflow-hidden bg-slate-900 aspect-4/3 cursor-pointer shadow-[0_15px_35px_rgba(0,0,0,0.6)] border border-white/15 hover:border-cyan-400/60 hover:shadow-[0_20px_45px_rgba(6,182,212,0.25)] hover:scale-[1.03] hover:-translate-y-1 transition-all duration-300 p-1"
-            >
-              <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 opacity-80 group-hover:opacity-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent group-hover:from-slate-950/95 transition-colors" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-300">
-                    {event.attendeeRange}
-                  </span>
-                  <h3 className="text-base font-bold leading-tight group-hover:text-cyan-300 transition-colors">
-                    {event.name}
-                  </h3>
-                  <p className="text-[11px] text-slate-300 line-clamp-1">
-                    {event.highlight}
-                  </p>
-                </div>
-              </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-blue-700" />
+              <span>Event Showcase</span>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 7. AI EVENT PLANNER ASSISTANT IN LIQUID GLASS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SmartEventPlanner
-          onApplyPlan={(ids) => onOpenBookingModal(undefined, undefined, ids)}
-          onOpenBookingWithDate={(date, serviceId) => onOpenBookingModal(serviceId, date)}
-        />
-      </section>
-
-      {/* 8. WHY CHOOSE EVENTSRENTALS.IO */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Why Choose Us</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
+              Real Event Photos
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base max-w-2xl">
+              See our commercial bouncy castles and vintage popcorn carts set up at real birthday parties and school events.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            WHY CHOOSE EVENTSRENTALS.IO?
+
+          <button
+            onClick={() => onNavigate('gallery')}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700 hover:text-blue-800 transition-colors group cursor-pointer"
+          >
+            <span>View Full Photo Gallery</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+        </div>
+
+        <GallerySection limit={4} />
+      </section>
+
+      {/* 6. SANITIZATION & SAFETY STANDARDS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SafetySection />
+      </section>
+
+      {/* 7. WHY CHOOSE EVENTSRENTALS.IO */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <ShieldCheck className="w-3.5 h-3.5 text-blue-700" />
+            <span>Why Hosts Choose Us</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
+            Commercial Quality &amp; Reliability
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            We hold ourselves to the highest standards in commercial equipment safety, punctuality, and client communication.
+          <p className="text-slate-600 text-sm sm:text-base">
+            Commercial equipment integrity, certified punctuality, and transparent dispatch communication.
           </p>
         </div>
 
@@ -479,14 +433,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {trustHighlights.map((item, idx) => (
             <div
               key={idx}
-              className="bg-slate-950/60 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] space-y-3 hover:border-cyan-400/50 hover:shadow-[0_20px_40px_rgba(6,182,212,0.2)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden"
+              className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-3 hover:border-blue-300 transition-all duration-200"
             >
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 rounded-full blur-2xl group-hover:scale-125 transition-transform pointer-events-none" />
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-400 flex items-center justify-center font-bold group-hover:bg-cyan-500/20 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#0b192c] text-blue-400 flex items-center justify-center font-bold">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-white text-base group-hover:text-cyan-300 transition-colors">{item.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <h3 className="font-bold text-[#0b192c] text-base">{item.title}</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -494,63 +447,53 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 9. SAFETY & STANDARDS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SafetySection />
-      </section>
-
-      {/* 10. REAL EVENT GALLERY */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <GallerySection limit={6} />
-        <div className="text-center mt-8">
-          <button
-            onClick={() => onNavigate('gallery')}
-            className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-xl text-white font-bold text-xs sm:text-sm shadow-lg hover:shadow-cyan-500/10 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
-          >
-            View Full Event Gallery (12+ Real Photos) →
-          </button>
-        </div>
-      </section>
-
-      {/* 11. CLIENT EXPERIENCES & REVIEWS IN LIQUID GLASS */}
-      <section className="bg-white/5 backdrop-blur-2xl py-16 border-y border-white/10">
+      {/* 8. VERIFIED REVIEWS */}
+      <section className="bg-slate-50 py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-              Verified Host Feedback
-            </span>
-            <h2 className="text-3xl font-extrabold text-white">
-              Loved by Parents, Companies & Schools
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div className="space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-900">
+                Verified Host Feedback
+              </span>
+              <h2 className="text-3xl font-black text-[#0b192c]">
+                Trusted by Parents &amp; Schools (5.0★)
+              </h2>
+            </div>
+            <button
+              onClick={() => onNavigate('reviews')}
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700 hover:text-blue-800 transition-colors cursor-pointer"
+            >
+              <span>Read All Verified Customer Stories</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS_DATA.map(t => (
+            {TESTIMONIALS_DATA.map((t) => (
               <div
                 key={t.id}
-                className="bg-slate-950/70 backdrop-blur-2xl rounded-3xl p-6 border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] space-y-4 flex flex-col justify-between hover:border-cyan-400/50 hover:shadow-[0_20px_40px_rgba(6,182,212,0.18)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden"
+                className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/15 transition-colors pointer-events-none" />
-                <div className="space-y-3 relative z-10">
-                  <div className="flex items-center gap-1 text-cyan-400">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-1 text-amber-500">
                     {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-cyan-400 group-hover:scale-110 transition-transform" />
+                      <Star key={i} className="w-4 h-4 fill-amber-500" />
                     ))}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
                     &ldquo;{t.content}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex items-center gap-3 relative z-10">
+                <div className="pt-3 border-t border-slate-100 flex items-center gap-3">
                   <img
                     src={t.avatar}
                     alt={t.author}
-                    className="w-10 h-10 rounded-full object-cover border border-white/20 group-hover:border-cyan-400/60 transition-colors"
+                    className="w-10 h-10 rounded-full object-cover border border-slate-200"
                   />
                   <div>
-                    <h3 className="font-bold text-xs text-white group-hover:text-cyan-300 transition-colors">{t.author}</h3>
-                    <p className="text-[11px] text-slate-400">{t.role} • {t.location}</p>
+                    <h3 className="font-bold text-xs text-[#0b192c]">{t.author}</h3>
+                    <p className="text-[11px] text-slate-500">{t.role} • {t.location}</p>
                   </div>
                 </div>
               </div>
@@ -559,38 +502,35 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 12. FAQ ACCORDION IN LIQUID GLASS */}
+      {/* 9. FAQ SECTION */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Answers to Common Questions</span>
+        <div className="text-center space-y-3 mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <HelpCircle className="w-3.5 h-3.5 text-blue-700" />
+            <span>Frequently Asked Questions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Frequently Asked Questions
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight">
+            Clear Answers on Setup &amp; Weather
           </h2>
-          <p className="text-slate-300 text-sm">
-            Everything you need to know about date availability, setup logistics, power requirements, and weather policies.
-          </p>
         </div>
 
         <div className="space-y-3">
-          {FAQ_DATA.slice(0, 6).map((faq, index) => {
+          {FAQ_DATA.slice(0, 5).map((faq, index) => {
             const isOpen = openFaqIndex === index;
             return (
               <div
                 key={index}
-                className="bg-slate-950/60 backdrop-blur-2xl rounded-2xl border border-white/15 shadow-sm overflow-hidden hover:border-cyan-400/40 hover:shadow-[0_8px_20px_rgba(6,182,212,0.12)] transition-all duration-300"
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-cyan-300 transition-colors cursor-pointer"
+                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-[#0b192c] hover:text-blue-700 transition-colors cursor-pointer"
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
+                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-blue-700' : 'text-slate-400'}`} />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/10 animate-in fade-in duration-200">
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
                     {faq.answer}
                   </div>
                 )}
@@ -602,46 +542,44 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="text-center mt-6">
           <button
             onClick={() => onNavigate('faq')}
-            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4 cursor-pointer"
+            className="text-xs font-bold text-blue-700 hover:text-blue-800 underline underline-offset-4 cursor-pointer"
           >
-            View all 10+ FAQ answers & equipment policies →
+            View all FAQ answers &amp; policy details →
           </button>
         </div>
       </section>
 
-      {/* 13. FINAL HIGH CONVERSION BOOKING CTA IN LIQUID GLASS */}
+      {/* 10. FINAL DARK BLUE TRUST CALL TO ACTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl p-[1px] bg-gradient-to-r from-cyan-400 via-indigo-500 to-pink-500 shadow-[0_25px_60px_-15px_rgba(99,102,241,0.3)]">
-          <div className="bg-slate-950/80 backdrop-blur-3xl text-white rounded-3xl p-8 sm:p-14 text-center space-y-6">
-            <div className="max-w-2xl mx-auto space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-                Ready to create something special?
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Tell Us What You&apos;re Planning. <br />
-                <span className="bg-gradient-to-r from-cyan-400 via-indigo-300 to-pink-400 bg-clip-text text-transparent">We&apos;ll Help Make It Happen.</span>
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Check real-time availability for your event date or launch a direct Calendly consultation with our dispatch coordinator.
-              </p>
-            </div>
+        <div className="bg-[#0b192c] text-white rounded-3xl p-8 sm:p-14 text-center space-y-6 shadow-2xl border border-slate-800">
+          <div className="max-w-2xl mx-auto space-y-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              Direct Dispatch &amp; Schedule Hold
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+              Ready to Plan Your Event? <br />
+              <span className="text-blue-400">Lock In Your Date Today.</span>
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Check real-time equipment availability for your target date or schedule a quick dispatch booking via Calendly.
+            </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <button
-                onClick={() => onOpenBookingModal()}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:opacity-95 active:scale-95 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20"
-              >
-                <Calendar className="w-5 h-5 text-white" />
-                <span>Book Your Event Now</span>
-              </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <button
+              onClick={() => onOpenBookingModal()}
+              className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Calendar className="w-5 h-5 text-white" />
+              <span>Book Your Event Now</span>
+            </button>
 
-              <button
-                onClick={() => onNavigate('contact')}
-                className="w-full sm:w-auto px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-xl text-white font-bold text-base rounded-2xl border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Contact Dispatch Team</span>
-              </button>
-            </div>
+            <button
+              onClick={() => onNavigate('contact')}
+              className="w-full sm:w-auto px-7 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold text-base rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Contact Dispatch Team</span>
+            </button>
           </div>
         </div>
       </section>

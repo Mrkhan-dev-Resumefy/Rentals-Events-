@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { 
   X, Calendar, CheckCircle2, 
-  ExternalLink, AlertCircle, Sparkles, Shield
+  ExternalLink, AlertCircle, Sparkles, ShieldCheck, Clock
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CALENDLY_CONFIG, BUSINESS_CONFIG } from '../data/businessConfig';
@@ -48,11 +48,12 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
   const [eventLocation, setEventLocation] = useState('');
   const [eventType, setEventType] = useState(initialEventType);
   const [guestCount, setGuestCount] = useState(initialGuestCount);
+  const [setupSurface, setSetupSurface] = useState('Grass / Turf (Steel Stakes)');
   const [additionalNotes, setAdditionalNotes] = useState('');
   const [selectedServices, setSelectedServices] = useState<string[]>(
     preselectedServices.length > 0 
       ? preselectedServices 
-      : (serviceId ? [serviceId] : ['food-truck-arrangements'])
+      : (serviceId ? [serviceId] : ['standard-jumping-castle'])
   );
   
   const [activeTab, setActiveTab] = useState<'interactive' | 'calendly-embed'>('interactive');
@@ -74,7 +75,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
   // Determine appropriate Calendly URL based on service
   const getCalendlyUrl = () => {
     if (selectedServices.length > 1) {
-      return CALENDLY_CONFIG.serviceFlows['consultation'];
+      return CALENDLY_CONFIG.serviceFlows['ultimate-bounce-and-pop-combo'] || CALENDLY_CONFIG.baseUrl;
     }
     const singleService = selectedServices[0] || serviceId;
     if (singleService && CALENDLY_CONFIG.serviceFlows[singleService as keyof typeof CALENDLY_CONFIG.serviceFlows]) {
@@ -100,34 +101,11 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
         console.warn('Calendly popup failed, redirecting:', e);
       }
     }
+    // Fallback: Open in clean popup window or new tab
     window.open(calendlyUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const handleSubmitBookingRequest = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      bookingSuccess({
-        title: 'Booking Request Confirmed!',
-        message: `Your reservation request for ${selectedDate || 'your event date'} (${guestCount} guests) has been received. Our event coordinator will confirm details shortly.`,
-        date: selectedDate,
-      });
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch {
-        // Confetti fallback
-      }
-    }, 600);
-  };
-
-  const toggleService = (id: string) => {
+  const toggleServiceSelection = (id: string) => {
     setSelectedServices(prev => 
       prev.includes(id) 
         ? (prev.length > 1 ? prev.filter(s => s !== id) : prev) 
@@ -135,392 +113,359 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
     );
   };
 
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+
+      const serviceNames = selectedServices
+        .map(id => SERVICES_DATA.find(s => s.id === id)?.name || id)
+        .join(', ');
+
+      bookingSuccess(
+        'Delivery Hold Secured!',
+        `Your reservation for ${serviceNames} on ${selectedDate || 'your selected date'} has been routed to dispatch. Confirmation sent to ${email}.`
+      );
+
+      try {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      } catch {
+        // Fallback gracefully
+      }
+    }, 600);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
       <div 
-        className="relative bg-slate-950/90 backdrop-blur-3xl w-full max-w-4xl rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-white/20 overflow-hidden my-8 max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-200"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="booking-modal-title"
+        className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-6 max-h-[90vh] flex flex-col"
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header in Liquid Glass */}
-        <div className="bg-white/5 backdrop-blur-2xl text-white px-6 py-5 flex items-center justify-between border-b border-white/10 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20 border border-white/20">
-              <Calendar className="w-5 h-5" />
+        {/* Modal Header */}
+        <div className="bg-[#0b192c] text-white p-5 sm:p-6 flex items-center justify-between shrink-0 border-b border-slate-800">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800">
+                Live Calendly Booking
+              </span>
+              <span className="text-[11px] text-slate-400">
+                Punctual Delivery &amp; Full Setup
+              </span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-400/20">
-                  Direct Availability & Booking
-                </span>
-                <span className="text-xs text-slate-400 hidden sm:inline">• Powered by Calendly</span>
-              </div>
-              <h2 id="booking-modal-title" className="text-lg sm:text-xl font-bold text-white leading-tight">
-                {serviceName ? `Book: ${serviceName}` : 'Check Event Date & Request Booking'}
-              </h2>
-            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-white">
+              {serviceName || 'Reserve Your Bouncy Castle & Popcorn Cart'}
+            </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Close modal"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto grow space-y-6 text-slate-200">
-          {isSubmitted ? (
-            <div className="py-8 text-center space-y-5 max-w-lg mx-auto">
-              <div className="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-emerald-400 text-white rounded-full flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30 border border-white/30">
-                <CheckCircle2 className="w-10 h-10 stroke-[2.5]" />
+        {/* Tab Switcher */}
+        <div className="bg-slate-100 p-1.5 flex gap-1 border-b border-slate-200 text-xs font-bold shrink-0">
+          <button
+            onClick={() => setActiveTab('interactive')}
+            className={`flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'interactive' 
+                ? 'bg-white text-[#0b192c] shadow-xs' 
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Quick Dispatch Form &amp; Date Hold
+          </button>
+          <button
+            onClick={() => setActiveTab('calendly-embed')}
+            className={`flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              activeTab === 'calendly-embed' 
+                ? 'bg-white text-[#0b192c] shadow-xs' 
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Calendar className="w-3.5 h-3.5 text-blue-700" />
+            <span>Calendly Live Calendar View</span>
+          </button>
+        </div>
+
+        {/* Modal Scrollable Body */}
+        <div className="p-6 overflow-y-auto space-y-6">
+          {activeTab === 'calendly-embed' ? (
+            /* Calendly External / Embed Screen */
+            <div className="text-center py-10 space-y-6">
+              <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto border border-blue-200">
+                <Calendar className="w-8 h-8" />
               </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-white">Booking Request Received!</h3>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Thank you, <strong className="text-white">{fullName || 'Party Host'}</strong>. We have placed a priority reservation hold for <strong className="text-cyan-300">{selectedDate || 'your event date'}</strong>.
+
+              <div className="space-y-2 max-w-md mx-auto">
+                <h3 className="text-xl font-black text-[#0b192c]">
+                  Open Synchronized Calendly Calendar
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Select your exact delivery date and setup window on our official schedule.
                 </p>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-2xl rounded-2xl p-4 text-left border border-white/15 text-xs space-y-2 text-slate-300">
-                <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-slate-400">Selected Services:</span>
-                  <span className="font-semibold text-white text-right">
-                    {selectedServices.map(s => SERVICES_DATA.find(item => item.id === s)?.name.split('(')[0].trim() || s).join(', ')}
-                  </span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-slate-400">Event Date & Time:</span>
-                  <span className="font-semibold text-white">{selectedDate} ({selectedTimeSlot})</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-slate-400">Event Type & Guests:</span>
-                  <span className="font-semibold text-white">{eventType} • {guestCount} guests</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-slate-400">Location:</span>
-                  <span className="font-semibold text-white">{eventLocation || BUSINESS_CONFIG.serviceAreaPlaceholder}</span>
-                </div>
-              </div>
-
-              <div className="bg-cyan-500/10 border border-cyan-400/20 rounded-2xl p-3 text-left flex items-start gap-2.5 text-xs text-cyan-200">
-                <AlertCircle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <p>
-                  <strong>What happens next:</strong> Our dispatch team confirms final power & layout details within 2 business hours and emails your complete setup itinerary.
-                </p>
-              </div>
-
-              <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
-                  type="button"
                   onClick={handleLaunchOfficialPopup}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm hover:opacity-90 transition-opacity shadow-lg cursor-pointer border border-white/20"
+                  className="w-full sm:w-auto px-6 py-3.5 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>Sync with Calendly Calendar</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-4 h-4 text-blue-400" />
+                  <span>Launch Official Calendly Popup</span>
                 </button>
                 <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-5 py-2.5 rounded-xl bg-white/10 text-white font-medium text-sm hover:bg-white/15 transition-colors cursor-pointer border border-white/15"
+                  onClick={() => setActiveTab('interactive')}
+                  className="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer"
                 >
-                  Done & Close
+                  Use Direct Quick Form
                 </button>
               </div>
             </div>
-          ) : (
-            <>
-              {/* Tab Selector in Liquid Glass */}
-              <div className="flex items-center justify-between bg-white/5 backdrop-blur-xl p-1 rounded-2xl border border-white/10">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('interactive')}
-                  className={`flex-1 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-                    activeTab === 'interactive' 
-                      ? 'bg-white/15 text-white shadow-sm border border-white/20' 
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Fast Event Booking Form
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('calendly-embed')}
-                  className={`flex-1 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    activeTab === 'calendly-embed' 
-                      ? 'bg-white/15 text-white shadow-sm border border-white/20' 
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>Live Calendly Flow</span>
-                  <span className="text-[10px] bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 px-1.5 py-0.5 rounded-full font-mono">Sync</span>
-                </button>
+          ) : isSubmitted ? (
+            /* Confirmation Success State */
+            <div className="text-center py-10 space-y-5">
+              <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
+                <CheckCircle2 className="w-8 h-8" />
               </div>
 
-              {activeTab === 'interactive' ? (
-                <form onSubmit={handleSubmitBookingRequest} className="space-y-6">
-                  {/* Step 1: Services Selection */}
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-                        <span>Step 1: Select Event Services</span>
-                        <span className="text-cyan-400 font-normal">({selectedServices.length} selected)</span>
-                      </label>
-                      <span className="text-[11px] text-slate-400">Tap to toggle multiple</span>
-                    </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-[#0b192c]">
+                  Date Hold Confirmed!
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
+                  Thank you, <strong>{fullName || 'Party Host'}</strong>. Your equipment delivery hold has been routed to our dispatch team for <strong>{selectedDate || 'your date'}</strong>.
+                </p>
+              </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {SERVICES_DATA.map(service => {
-                        const isChecked = selectedServices.includes(service.id);
-                        return (
-                          <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => toggleService(service.id)}
-                            className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all text-xs cursor-pointer backdrop-blur-md ${
-                              isChecked
-                                ? 'bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 border-cyan-400/50 text-white shadow-sm'
-                                : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
-                            }`}
-                          >
-                            <div className={`w-4 h-4 rounded flex items-center justify-center border text-[10px] ${
-                              isChecked 
-                                ? 'bg-gradient-to-r from-cyan-400 to-indigo-500 border-white/40 text-white font-bold' 
-                                : 'border-white/20 bg-white/5'
-                            }`}>
-                              {isChecked ? '✓' : ''}
-                            </div>
-                            <div className="truncate">
-                              <p className="font-semibold truncate text-white">{service.name.split('(')[0]}</p>
-                              <span className="text-[10px] text-slate-400 capitalize">{service.category}</span>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 max-w-md mx-auto text-left text-xs space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Contact:</span>
+                  <span className="font-semibold text-slate-800">{email} • {phone}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Event Date:</span>
+                  <span className="font-semibold text-slate-800">{selectedDate} ({selectedTimeSlot})</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Equipment:</span>
+                  <span className="font-semibold text-slate-800">
+                    {selectedServices.map(id => SERVICES_DATA.find(s => s.id === id)?.name || id).join(' + ')}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Setup Surface:</span>
+                  <span className="font-semibold text-slate-800">{setupSurface}</span>
+                </div>
+              </div>
 
-                  {/* Step 2: Date & Time */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white/5 backdrop-blur-xl p-4 rounded-2xl border border-white/10">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                        Step 2: Preferred Event Date *
-                      </label>
-                      <input
-                        type="date"
-                        required
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/80 border border-white/20 rounded-xl text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 [color-scheme:dark]"
-                      />
-                      <p className="text-[11px] text-slate-400">
-                        * Note: Availability is subject to confirmation via dispatch.
-                      </p>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                        Preferred Arrival / Setup Window
-                      </label>
-                      <select
-                        value={selectedTimeSlot}
-                        onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/80 border border-white/20 rounded-xl text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                      >
-                        <option value="8:00 AM - 10:00 AM" className="bg-slate-900 text-white">Morning Early (8:00 AM – 10:00 AM)</option>
-                        <option value="10:00 AM - 12:00 PM" className="bg-slate-900 text-white">Mid Morning (10:00 AM – 12:00 PM)</option>
-                        <option value="12:00 PM - 2:00 PM" className="bg-slate-900 text-white">Early Afternoon (12:00 PM – 2:00 PM)</option>
-                        <option value="2:00 PM - 5:00 PM" className="bg-slate-900 text-white">Late Afternoon (2:00 PM – 5:00 PM)</option>
-                        <option value="5:00 PM - 8:00 PM" className="bg-slate-900 text-white">Evening Gala / Night Shift (5:00 PM – 8:00 PM)</option>
-                      </select>
-                      <p className="text-[11px] text-slate-400">
-                        We arrive 45–90 min prior to party start time.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Step 3: Event Specifications */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                        Event Type
-                      </label>
-                      <select
-                        value={eventType}
-                        onChange={(e) => setEventType(e.target.value)}
-                        className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                      >
-                        <option value="Birthday Party" className="bg-slate-900 text-white">Birthday Party</option>
-                        <option value="Kids Party" className="bg-slate-900 text-white">Kids Party</option>
-                        <option value="School Event" className="bg-slate-900 text-white">School Event / Carnival</option>
-                        <option value="Corporate Event" className="bg-slate-900 text-white">Corporate Event / Picnic</option>
-                        <option value="Community Festival" className="bg-slate-900 text-white">Community Festival</option>
-                        <option value="Wedding / Reception" className="bg-slate-900 text-white">Wedding / Reception</option>
-                        <option value="Private Gathering" className="bg-slate-900 text-white">Private Gathering</option>
-                        <option value="Other" className="bg-slate-900 text-white">Other Custom Event</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                        Estimated Guests
-                      </label>
-                      <select
-                        value={guestCount}
-                        onChange={(e) => setGuestCount(e.target.value)}
-                        className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                      >
-                        <option value="Under 25" className="bg-slate-900 text-white">Under 25 guests</option>
-                        <option value="25-50" className="bg-slate-900 text-white">25 – 50 guests</option>
-                        <option value="50-100" className="bg-slate-900 text-white">50 – 100 guests</option>
-                        <option value="100-250" className="bg-slate-900 text-white">100 – 250 guests</option>
-                        <option value="250-500" className="bg-slate-900 text-white">250 – 500 guests</option>
-                        <option value="500+" className="bg-slate-900 text-white">500+ guests (Festival Scale)</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                        Event Location / Suburb *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Westside Park or Home Address"
-                        value={eventLocation}
-                        onChange={(e) => setEventLocation(e.target.value)}
-                        className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Step 4: Host Contact Info */}
-                  <div className="border-t border-white/10 pt-4 space-y-3">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                      Step 3: Host Contact Details
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Your Full Name *"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          required
-                          placeholder="Email Address *"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="Mobile Phone Number *"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <textarea
-                        rows={2}
-                        placeholder="Additional details (Surface type e.g. grass vs concrete, power availability, gate width, special requests)..."
-                        value={additionalNotes}
-                        onChange={(e) => setAdditionalNotes(e.target.value)}
-                        className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Submission CTA & Calendly Direct Alternative */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10">
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Shield className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>Zero spam. Direct dispatch confirmation.</span>
-                    </div>
-
-                    <div className="flex items-center gap-2 w-full sm:w-auto">
+              <button
+                onClick={onClose}
+                className="px-6 py-3 bg-[#0b192c] hover:bg-[#122543] text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all"
+              >
+                Done &amp; Return to Page
+              </button>
+            </div>
+          ) : (
+            /* Interactive Direct Booking Form */
+            <form onSubmit={handleBookingSubmit} className="space-y-6">
+              {/* Service Toggle Pills */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-700 flex items-center justify-between">
+                  <span>Selected Rental Equipment:</span>
+                  <span className="text-[11px] text-blue-700 font-normal">Click to toggle</span>
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {SERVICES_DATA.map((service) => {
+                    const isSelected = selectedServices.includes(service.id);
+                    return (
                       <button
                         type="button"
-                        onClick={handleLaunchOfficialPopup}
-                        className="px-4 py-2.5 rounded-xl border border-white/15 bg-white/10 text-slate-200 hover:text-white hover:bg-white/15 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                        title="Open external Calendly scheduler"
+                        key={service.id}
+                        onClick={() => toggleServiceSelection(service.id)}
+                        className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-blue-50/80 border-blue-600 text-blue-950 font-bold ring-1 ring-blue-500/30'
+                            : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                        }`}
                       >
-                        <span>Open Calendly</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                      </button>
-
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:opacity-95 active:scale-95 text-white font-bold text-sm shadow-md shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20"
-                      >
-                        {isSubmitting ? (
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        ) : (
-                          <>
-                            <span>Submit Booking Request</span>
-                            <Sparkles className="w-4 h-4 text-white" />
-                          </>
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            src={service.heroImage}
+                            alt=""
+                            className="w-10 h-10 rounded-xl object-cover"
+                          />
+                          <div>
+                            <p className="text-xs leading-tight">{service.name}</p>
+                            <span className="text-[10px] text-slate-500 capitalize">{service.category}</span>
+                          </div>
+                        </div>
+                        {isSelected && (
+                          <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
                         )}
                       </button>
-                    </div>
-                  </div>
-                </form>
-              ) : (
-                /* Official Calendly Embed Tab with fallback */
-                <div className="space-y-4">
-                  <div className="bg-cyan-500/10 border border-cyan-400/20 rounded-2xl p-3 text-xs text-cyan-200 flex items-start gap-2 backdrop-blur-md">
-                    <AlertCircle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-semibold text-white">Live Calendly Schedule for: {serviceName || 'Event Consultation'}</p>
-                      <p className="text-slate-300 text-[11px]">
-                        Dates blocked by dispatch are automatically disabled. Choose a convenient time slot below or launch the full-screen scheduler.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="border border-white/20 rounded-2xl overflow-hidden bg-slate-900/90 shadow-inner min-h-[480px] relative">
-                    <iframe
-                      src={calendlyUrl}
-                      title="Calendly Scheduling Page"
-                      className="w-full h-[520px] border-0"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
-                    <span>Having trouble loading within frame?</span>
-                    <a
-                      href={calendlyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-cyan-400 font-semibold hover:underline"
-                    >
-                      <span>Open official Calendly in new tab</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
+                    );
+                  })}
                 </div>
-              )}
-            </>
+              </div>
+
+              {/* Date & Time Selection */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Event Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Preferred Setup Time *</label>
+                  <select
+                    value={selectedTimeSlot}
+                    onChange={(e) => setSelectedTimeSlot(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  >
+                    <option>08:00 AM – 10:00 AM (Early Setup)</option>
+                    <option>10:00 AM – 12:00 PM (Morning Party)</option>
+                    <option>12:00 PM – 02:00 PM (Afternoon Party)</option>
+                    <option>02:00 PM – 04:00 PM (Late Afternoon)</option>
+                    <option>04:00 PM – 06:00 PM (Evening Event)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Host Contact Information */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Host Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Sarah Jenkins"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="e.g. sarah@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Phone Number *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="e.g. (555) 000-1234"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+              </div>
+
+              {/* Surface & Location Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Setup Surface Type *</label>
+                  <select
+                    value={setupSurface}
+                    onChange={(e) => setSetupSurface(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  >
+                    <option>Grass / Turf (18&quot; Steel Stakes)</option>
+                    <option>Concrete / Asphalt (150lb Sandbag Ballasts)</option>
+                    <option>Pavers / Patio (Sandbag Ballasts)</option>
+                    <option>Indoor Gym / Hall</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Delivery Address / City *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 1245 Maplewood Ave, North Suburbs"
+                    value={eventLocation}
+                    onChange={(e) => setEventLocation(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+              </div>
+
+              {/* Special Instructions */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700">
+                  Special Venue Notes (Gate width, power outlet location, etc.)
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="e.g. Gate is 4ft wide, power outlet is on back patio within 30ft..."
+                  value={additionalNotes}
+                  onChange={(e) => setAdditionalNotes(e.target.value)}
+                  className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                />
+              </div>
+
+              {/* Submit Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:flex-1 py-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  <Calendar className="w-4 h-4 text-blue-400" />
+                  <span>{isSubmitting ? 'Routing to Dispatch...' : 'Confirm Delivery Date Hold'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleLaunchOfficialPopup}
+                  className="w-full sm:w-auto px-5 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-600" />
+                  <span>Open Calendly Window</span>
+                </button>
+              </div>
+            </form>
           )}
+        </div>
+
+        {/* Modal Trust Footer */}
+        <div className="bg-slate-50 p-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 shrink-0">
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-blue-600" />
+            45–60 min punctual setup buffer on every booking
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            100% child-safe hospital-grade sanitization
+          </span>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { CheckCircle2, AlertCircle, Info, Sparkles, X, Calendar, ArrowRight } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Info, Sparkles, X, ArrowRight } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'booking';
 
@@ -54,7 +54,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     action?: { label: string; onClick: () => void };
   }) => {
     const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const duration = options.duration ?? 5000;
+    const duration = options.duration ?? 4500;
 
     const newToast: ToastItem = {
       id,
@@ -66,7 +66,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       createdAt: Date.now(),
     };
 
-    setToasts(prev => [newToast, ...prev].slice(0, 4)); // keep max 4 toasts at once
+    setToasts(prev => [newToast, ...prev].slice(0, 4));
 
     if (duration > 0) {
       setTimeout(() => {
@@ -94,7 +94,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const message = details.message || (details.date 
       ? `Your reservation request for ${details.date} has been dispatched. Our team will contact you shortly.` 
       : 'Your event reservation request has been submitted successfully.');
-    return showToast({ type: 'booking', title, message, duration: 6000 });
+    return showToast({ type: 'booking', title, message, duration: 5500 });
   }, [showToast]);
 
   return (
@@ -134,7 +134,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onDismis
 
   return (
     <div 
-      className="fixed bottom-5 right-5 z-[9999] flex flex-col gap-3 max-w-sm sm:max-w-md w-full pointer-events-none px-4 sm:px-0"
+      className="fixed bottom-5 right-5 z-[9999] flex flex-col gap-2.5 max-w-sm sm:max-w-md w-full pointer-events-none px-4 sm:px-0"
       aria-live="polite"
       aria-atomic="true"
     >
@@ -155,71 +155,66 @@ export const ToastCard: React.FC<ToastCardProps> = ({ toast, onDismiss }) => {
     switch (toast.type) {
       case 'booking':
         return (
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 shrink-0 border border-white/20">
-            <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-sm shrink-0">
+            <Sparkles className="w-4 h-4" />
           </div>
         );
       case 'success':
         return (
-          <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30 shadow-md shadow-emerald-500/20">
-            <CheckCircle2 className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+            <CheckCircle2 className="w-4 h-4" />
           </div>
         );
       case 'error':
         return (
-          <div className="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 border border-rose-500/30 shadow-md shadow-rose-500/20">
-            <AlertCircle className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center shrink-0">
+            <AlertCircle className="w-4 h-4" />
           </div>
         );
       case 'info':
       default:
         return (
-          <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-500/20">
-            <Info className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center shrink-0">
+            <Info className="w-4 h-4" />
           </div>
         );
     }
   };
 
-  const getBorderColor = () => {
+  const getCardStyle = () => {
     switch (toast.type) {
       case 'booking':
-        return 'border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.25)]';
+        return 'border-indigo-200 bg-white shadow-xl shadow-indigo-500/10 ring-1 ring-indigo-500/10';
       case 'success':
-        return 'border-emerald-500/40 shadow-[0_20px_50px_rgba(16,185,129,0.2)]';
+        return 'border-emerald-200 bg-white shadow-lg shadow-emerald-500/5';
       case 'error':
-        return 'border-rose-500/40 shadow-[0_20px_50px_rgba(244,63,94,0.2)]';
+        return 'border-rose-200 bg-white shadow-lg shadow-rose-500/5';
       case 'info':
       default:
-        return 'border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)]';
+        return 'border-slate-200 bg-white shadow-lg';
     }
   };
 
   return (
     <div
       role={toast.type === 'error' ? 'alert' : 'status'}
-      className={`pointer-events-auto relative w-full bg-slate-950/90 backdrop-blur-2xl text-white rounded-3xl p-4 sm:p-5 border ${getBorderColor()} flex items-start gap-3.5 transition-all duration-300 transform animate-in slide-in-from-bottom-5 fade-in zoom-in-95 group overflow-hidden`}
+      className={`pointer-events-auto relative w-full rounded-2xl p-4 border ${getCardStyle()} flex items-start gap-3 transition-all duration-200 transform animate-fast-in group`}
     >
-      {/* Background subtle liquid glow */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
-
       {getIcon()}
 
       <div className="flex-1 min-w-0 pr-6">
-        <div className="flex items-center gap-2">
-          <h5 className="font-extrabold text-sm sm:text-base text-white tracking-tight leading-snug">
-            {toast.title}
-          </h5>
-        </div>
+        <h5 className="font-bold text-sm text-slate-900 leading-snug">
+          {toast.title}
+        </h5>
         {toast.message && (
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+          <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
             {toast.message}
           </p>
         )}
         {toast.action && (
           <button
             onClick={toast.action.onClick}
-            className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:text-indigo-700 transition-colors"
           >
             <span>{toast.action.label}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -229,7 +224,7 @@ export const ToastCard: React.FC<ToastCardProps> = ({ toast, onDismiss }) => {
 
       <button
         onClick={onDismiss}
-        className="absolute top-3.5 right-3.5 p-1.5 rounded-full bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white transition-colors cursor-pointer border border-white/10"
+        className="absolute top-3 right-3 p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
         aria-label="Dismiss notification"
       >
         <X className="w-4 h-4" />
