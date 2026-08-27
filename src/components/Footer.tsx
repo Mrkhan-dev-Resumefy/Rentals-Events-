@@ -13,18 +13,21 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenBookingModal,
 }) => {
   return (
-    <footer className="bg-[#0b192c] text-slate-300 border-t border-slate-800 pt-14 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Top Call to Action Banner */}
-        <div className="bg-gradient-to-r from-slate-900 via-[#122543] to-[#0b192c] rounded-3xl p-6 sm:p-10 border border-slate-700/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xl">
+    <footer className="bg-[#0b192c]/95 backdrop-blur-2xl text-slate-300 border-t border-white/15 pt-14 pb-12 relative overflow-hidden">
+      {/* Subtle Liquid Ambient Shimmer */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+        {/* Top Call to Action Banner - Apple Liquid Glass Dark Card */}
+        <div className="liquid-glass-dark rounded-3xl p-6 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 px-2.5 py-1 rounded border border-blue-800">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-blue-300 bg-blue-500/20 px-3 py-1 rounded-full border border-blue-400/30 backdrop-blur-md">
                 <Award className="w-3.5 h-3.5 text-blue-400" />
                 <span>Commercial Bouncy Castle &amp; Popcorn Rentals</span>
               </span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-white">
+            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               Ready to Lock in Your Event Date?
             </h3>
             <p className="text-slate-300 text-xs sm:text-sm max-w-xl leading-relaxed">
@@ -35,14 +38,14 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <button
               onClick={() => onOpenBookingModal()}
-              className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="liquid-btn-primary px-6 py-3.5 text-white font-bold text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Calendar className="w-4 h-4" />
               <span>Check Dates on Calendly</span>
             </button>
             <button
               onClick={() => onNavigate('contact')}
-              className="px-6 py-3.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-semibold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs sm:text-sm rounded-2xl backdrop-blur-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <span>Contact Dispatch</span>
             </button>
@@ -57,8 +60,10 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={() => onNavigate('home')}
               className="flex items-center gap-3 cursor-pointer group"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md">
-                <span>E</span>
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-b from-blue-500 to-[#0b192c] p-[1px] shadow-[0_8px_20px_-4px_rgba(37,99,235,0.5)]">
+                <div className="w-full h-full rounded-[15px] bg-[#0b192c]/90 backdrop-blur-md flex items-center justify-center text-white font-extrabold text-lg">
+                  <span className="text-blue-400">E</span>
+                </div>
               </div>
               <span className="text-xl font-black tracking-tight text-white">
                 EventsRentals<span className="text-blue-400">.io</span>
@@ -69,17 +74,17 @@ export const Footer: React.FC<FooterProps> = ({
               Clean commercial bouncy castles and vintage retro popcorn carts. Delivered, safely anchored, and sanitized for your special day.
             </p>
 
-            <div className="space-y-1.5 text-xs text-slate-300">
+            <div className="space-y-2 text-xs text-slate-300">
               <p className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 <span>{BUSINESS_CONFIG.serviceAreaPlaceholder}</span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-blue-400" />
+                <Phone className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 <span>{BUSINESS_CONFIG.phonePlaceholder}</span>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
+                <Mail className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 <span>{BUSINESS_CONFIG.emailPlaceholder}</span>
               </p>
             </div>
@@ -90,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="font-bold text-white text-xs uppercase tracking-wider text-blue-400">
               Our 2 Rental Services
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2.5 text-xs text-slate-400">
               {SERVICES_DATA.map((service) => (
                 <li key={service.id}>
                   <button
@@ -125,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="font-bold text-white text-xs uppercase tracking-wider text-blue-400">
               Explore Pages
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
                 <button
                   onClick={() => onNavigate('gallery')}
@@ -208,26 +213,26 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar & Legal */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>© {new Date().getFullYear()} EventsRentals.io. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <button
               onClick={() => onNavigate('privacy')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
             <span>•</span>
             <button
               onClick={() => onNavigate('terms')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Terms of Service
             </button>
             <span>•</span>
             <button
               onClick={() => onNavigate('cancellation')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Weather &amp; Reschedule Policy
             </button>

@@ -6,8 +6,8 @@
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif;
+    background-color: #f6f8fc;
     color: #0f172a;
     min-height: 100vh;
     overflow-x: hidden;
@@ -17,97 +17,180 @@
   }
 
   h1, h2, h3, h4, .font-heading {
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
     color: #0b192c;
   }
 }
 
-/* Trust Navy Blue Palette & Card Utilities */
-.bg-navy-950 {
-  background-color: #07111e;
+/* =========================================================================
+   Apple Liquid Glass Design System
+   ========================================================================= */
+
+/* Liquid Glass Cards (Light Theme) */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 12px 36px -8px rgba(11, 25, 44, 0.07),
+    0 2px 8px -2px rgba(11, 25, 44, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.02);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bg-navy-900 {
-  background-color: #0b192c;
+.liquid-glass-interactive {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 10px 30px -8px rgba(11, 25, 44, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bg-navy-800 {
-  background-color: #122543;
+.liquid-glass-interactive:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(147, 197, 253, 0.9);
+  box-shadow: 
+    0 20px 48px -10px rgba(37, 99, 235, 0.12),
+    0 6px 16px -4px rgba(11, 25, 44, 0.05),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-3px) scale(1.003);
 }
 
-.bg-navy-700 {
-  background-color: #1a365d;
+/* Liquid Glass Deep / Dark (Apple Dark Glass) */
+.liquid-glass-dark {
+  background: rgba(11, 25, 44, 0.82);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 24px 60px -12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 1.75rem;
 }
 
-.text-navy-900 {
-  color: #0b192c;
+/* Liquid Glass Capsule / Pill */
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 4px 14px -2px rgba(11, 25, 44, 0.05),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.9);
 }
 
-.text-navy-800 {
-  color: #122543;
+/* Apple Liquid Buttons */
+.liquid-btn-primary {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 8px 24px -4px rgba(37, 99, 235, 0.4),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.border-navy-200 {
-  border-color: #cbd5e1;
+.liquid-btn-primary:hover {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 
+    0 12px 28px -4px rgba(37, 99, 235, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
 }
 
-/* Crisp Trust Cards */
-.trust-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 12px -2px rgba(11, 25, 44, 0.06), 0 1px 3px rgba(11, 25, 44, 0.04);
-  transition: all 0.2s ease-in-out;
+.liquid-btn-dark {
+  background: linear-gradient(180deg, #1e293b 0%, #0b192c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 8px 24px -4px rgba(11, 25, 44, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trust-card:hover {
-  border-color: #93c5fd;
-  box-shadow: 0 10px 25px -4px rgba(11, 25, 44, 0.1), 0 4px 10px -2px rgba(11, 25, 44, 0.04);
-  transform: translateY(-2px);
+.liquid-btn-dark:hover {
+  background: linear-gradient(180deg, #334155 0%, #122543 100%);
+  box-shadow: 
+    0 12px 30px -4px rgba(11, 25, 44, 0.45),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
 }
 
-/* Clean Trust Gradients */
-.gradient-navy {
-  background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 100%);
+/* Liquid Glass Form Inputs */
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
 }
 
-.gradient-blue-trust {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+.liquid-glass-input:focus {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #3b82f6;
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.15),
+    inset 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  outline: none;
 }
 
-.gradient-heading-navy {
-  background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 60%, #2563eb 100%);
+/* Liquid Mesh Background Animations */
+@keyframes liquidBlob {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-25px, 20px) scale(0.95);
+  }
+}
+
+.animate-liquid-1 {
+  animation: liquidBlob 14s ease-in-out infinite alternate;
+}
+
+.animate-liquid-2 {
+  animation: liquidBlob 18s ease-in-out 3s infinite alternate-reverse;
+}
+
+.animate-liquid-3 {
+  animation: liquidBlob 20s ease-in-out 6s infinite alternate;
+}
+
+/* Clean Trust & Specular Gradients */
+.gradient-heading-liquid {
+  background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 45%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Clean Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: rgba(241, 245, 249, 0.6);
+  backdrop-filter: blur(8px);
 }
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: rgba(148, 163, 184, 0.6);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: rgba(100, 116, 139, 0.8);
+  background-clip: content-box;
 }
 
-/* Fast animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fast-in {
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}

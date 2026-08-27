@@ -65,14 +65,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Col: Headlines & Booking Actions */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Trust Badge Pill - No Liability Claim */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
-                <ShieldCheck className="w-4 h-4 text-blue-700" />
-                <span>Commercial Grade Equipment • Guaranteed On-Time Dispatch</span>
+              {/* Trust Badge Pill - Apple Liquid Glass */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass-pill text-blue-950 text-xs font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4 text-blue-600" />
+                <span>Commercial Fleet • Certified On-Time Dispatch</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-[#0b192c]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-[#0b192c]">
                 COMMERCIAL BOUNCY CASTLES &amp; VINTAGE POPCORN CARTS
               </h1>
 
@@ -85,7 +85,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <button
                   onClick={() => onOpenBookingModal()}
-                  className="w-full sm:w-auto px-8 py-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-base rounded-xl shadow-lg shadow-slate-900/15 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                  className="liquid-btn-dark w-full sm:w-auto px-8 py-4 text-white font-bold text-base rounded-2xl flex items-center justify-center gap-2.5 cursor-pointer active:scale-95"
                 >
                   <Calendar className="w-5 h-5 text-blue-400" />
                   <span>Check Dates &amp; Book</span>
@@ -94,75 +94,75 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
                 <button
                   onClick={() => onNavigate('packages')}
-                  className="w-full sm:w-auto px-7 py-4 bg-white hover:bg-slate-50 text-[#0b192c] font-bold text-base rounded-xl border border-slate-300 shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="liquid-glass-interactive w-full sm:w-auto px-7 py-4 text-[#0b192c] font-bold text-base rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
-                  <Sparkles className="w-5 h-5 text-blue-700" />
+                  <Sparkles className="w-5 h-5 text-blue-600" />
                   <span>View Party Combo</span>
                 </button>
               </div>
 
               {/* 4 Trust Metrics */}
-              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-slate-200 text-left max-w-xl mx-auto lg:mx-0">
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-white/60 text-left max-w-xl mx-auto lg:mx-0">
                 <div
                   onClick={() => onNavigate('safety')}
-                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                  className="liquid-glass-interactive p-3.5 rounded-2xl cursor-pointer"
                 >
                   <span className="text-xs font-bold uppercase text-blue-900 block">Rigging</span>
-                  <p className="text-[11px] text-slate-600 mt-0.5">18&quot; Steel Stakes →</p>
+                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">18&quot; Steel Stakes →</p>
                 </div>
                 <div
                   onClick={() => onNavigate('how-it-works')}
-                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                  className="liquid-glass-interactive p-3.5 rounded-2xl cursor-pointer"
                 >
                   <span className="text-xs font-bold uppercase text-blue-900 block">Punctual</span>
-                  <p className="text-[11px] text-slate-600 mt-0.5">45m Early Setup →</p>
+                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">45m Early Setup →</p>
                 </div>
                 <div
                   onClick={() => onNavigate('safety')}
-                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                  className="liquid-glass-interactive p-3.5 rounded-2xl cursor-pointer"
                 >
                   <span className="text-xs font-bold uppercase text-blue-900 block">Sanitized</span>
-                  <p className="text-[11px] text-slate-600 mt-0.5">100% Clean Gear →</p>
+                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">100% Clean Gear →</p>
                 </div>
                 <div
                   onClick={() => onNavigate('reviews')}
-                  className="bg-white p-3 rounded-xl border border-slate-200 shadow-xs cursor-pointer hover:border-blue-300 transition-colors"
+                  className="liquid-glass-interactive p-3.5 rounded-2xl cursor-pointer"
                 >
                   <span className="text-xs font-bold uppercase text-blue-900 block">Rating</span>
-                  <p className="text-[11px] text-slate-600 mt-0.5">5.0★ Reviews →</p>
+                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">5.0★ Reviews →</p>
                 </div>
               </div>
             </div>
 
-            {/* Right Col: Hero Visual Card */}
+            {/* Right Col: Hero Visual Card with Liquid Frame */}
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-white aspect-4/3 p-2">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-900">
+                <div className="liquid-glass rounded-3xl p-2.5 overflow-hidden">
+                  <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
                     <img
                       src={heroMontageImg}
                       alt="Commercial Bouncy Castle and Vintage Popcorn Cart Setup"
                       className="w-full h-full object-cover"
                       loading="eager"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent pointer-events-none" />
                     <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <div className="inline-block bg-blue-600 text-white text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md mb-1">
-                        Turnkey Party Equipment
+                      <div className="inline-block bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md mb-1 border border-blue-400/30">
+                        Turnkey Commercial Fleet
                       </div>
                       <p className="font-bold text-sm text-white">Commercial Inflatables &amp; Fresh Hot Popcorn</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating Verified Badge */}
-                <div className="absolute -top-3 -right-3 bg-white rounded-2xl p-3 shadow-lg border border-slate-200 flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold shrink-0">
+                {/* Floating Liquid Verified Badge */}
+                <div className="absolute -top-3 -right-3 liquid-glass rounded-2xl p-3 flex items-center gap-2.5 animate-subtle-float">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-300/40 flex items-center justify-center font-bold shrink-0">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-[#0b192c]">Safety Anchored</p>
-                    <p className="text-[10px] text-slate-500">Commercial turf stakes</p>
+                    <p className="text-[10px] text-slate-500 font-medium">Commercial turf stakes</p>
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full liquid-glass-pill text-blue-900 text-xs font-bold uppercase tracking-wider">
               <Layers className="w-3.5 h-3.5 text-blue-700" />
               <span>Our 2 Rental Services</span>
             </div>
@@ -201,40 +201,40 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </button>
         </div>
 
-        {/* 2 Services Grid */}
+        {/* 2 Services Grid - Apple Liquid Glass Interactive Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {SERVICES_DATA.map((service) => (
             <div
               key={service.id}
-              className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col group"
+              className="liquid-glass-interactive rounded-3xl overflow-hidden flex flex-col group p-2"
             >
               {/* Card Image */}
-              <div className="relative aspect-16/10 overflow-hidden bg-slate-100">
+              <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-slate-900">
                 <img
                   src={service.heroImage}
                   alt={service.name}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
                 {service.badge && (
-                  <div className="absolute top-3 left-3 bg-[#0b192c] text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-md shadow-md border border-slate-800">
+                  <div className="absolute top-3 left-3 bg-[#0b192c]/85 backdrop-blur-md text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-xl shadow-md border border-white/20">
                     {service.badge}
                   </div>
                 )}
                 <div className="absolute bottom-3 left-4 right-4 text-white">
-                  <h3 className="text-xl font-bold leading-snug">{service.name}</h3>
+                  <h3 className="text-xl font-bold leading-snug drop-shadow-sm">{service.name}</h3>
                 </div>
               </div>
 
               {/* Card Body */}
-              <div className="p-6 flex flex-col justify-between grow space-y-5">
+              <div className="p-5 sm:p-6 flex flex-col justify-between grow space-y-5">
                 <p className="text-sm text-slate-600 leading-relaxed">
                   {service.shortDescription}
                 </p>
 
-                {/* Key Specs */}
-                <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+                {/* Key Specs - Frosted inner pill */}
+                <div className="grid grid-cols-2 gap-2 bg-white/50 backdrop-blur-md p-3.5 rounded-2xl border border-white/80 text-xs">
                   {service.specifications.slice(0, 4).map((spec, i) => (
                     <div key={i}>
                       <span className="text-[10px] text-slate-500 block uppercase font-bold">{spec.label}</span>
@@ -246,7 +246,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 {/* What's Included Bullets */}
                 <div className="space-y-1.5">
                   <p className="text-xs font-bold text-[#0b192c] uppercase tracking-wider">What&apos;s Included:</p>
-                  <ul className="text-xs text-slate-600 space-y-1">
+                  <ul className="text-xs text-slate-600 space-y-1.5">
                     {service.features.slice(0, 3).map((f, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <Check className="w-3.5 h-3.5 text-blue-600 shrink-0" />
@@ -257,16 +257,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </div>
 
                 {/* Card Actions */}
-                <div className="pt-3 flex items-center gap-3 border-t border-slate-100">
+                <div className="pt-3 flex items-center gap-3 border-t border-white/60">
                   <button
                     onClick={() => onNavigate('service-detail', service.id)}
-                    className="flex-1 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors text-center cursor-pointer border border-slate-200"
+                    className="flex-1 py-3 px-4 rounded-xl bg-white/70 hover:bg-white text-slate-800 font-bold text-xs transition-all text-center cursor-pointer border border-white/90 shadow-xs active:scale-95"
                   >
                     Details &amp; Specs
                   </button>
                   <button
                     onClick={() => onOpenBookingModal(service.id)}
-                    className="flex-1 py-3 px-4 rounded-xl bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-xs transition-all text-center shadow-sm cursor-pointer flex items-center justify-center gap-1.5"
+                    className="liquid-btn-dark flex-1 py-3 px-4 rounded-xl text-white font-bold text-xs transition-all text-center cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                   >
                     <Calendar className="w-3.5 h-3.5 text-blue-400" />
                     <span>{service.ctaText}</span>
@@ -278,15 +278,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 3. ULTIMATE PARTY COMBO FEATURE */}
+      {/* 3. ULTIMATE PARTY COMBO FEATURE - Liquid Glass Dark */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {PACKAGES_DATA.slice(0, 1).map((pkg) => (
           <div
             key={pkg.id}
-            className="bg-gradient-to-br from-[#0b192c] via-[#122543] to-[#0b192c] text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-8"
+            className="liquid-glass-dark text-white rounded-3xl p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8"
           >
             <div className="space-y-4 max-w-2xl text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{pkg.badge}</span>
               </div>
@@ -309,7 +309,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="flex flex-col items-center gap-3 shrink-0">
               <button
                 onClick={() => onOpenBookingModal(undefined, undefined, ['standard-jumping-castle', 'standard-popcorn-cart'])}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                className="liquid-btn-primary px-8 py-4 text-white font-bold text-base rounded-2xl flex items-center gap-2 cursor-pointer active:scale-95"
               >
                 <Calendar className="w-5 h-5" />
                 <span>Book Combo on Calendly</span>
@@ -328,7 +328,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       {/* 4. HOW BOOKING WORKS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full liquid-glass-pill text-blue-900 text-xs font-bold uppercase tracking-wider">
             <Clock className="w-3.5 h-3.5 text-blue-700" />
             <span>Frictionless 4-Step Flow</span>
           </div>
@@ -365,15 +365,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
           ].map((item, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200"
+              className="liquid-glass-interactive rounded-3xl p-6 sm:p-7 space-y-2.5"
             >
-              <span className="text-3xl sm:text-4xl font-black text-blue-900 block mb-2 font-mono">
+              <span className="text-3xl sm:text-4xl font-black text-blue-900 block mb-2 font-mono drop-shadow-xs">
                 {item.step}
               </span>
-              <h3 className="text-base font-bold text-[#0b192c] mb-2">
+              <h3 className="text-base font-bold text-[#0b192c] mb-1">
                 {item.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                 {item.desc}
               </p>
             </div>
@@ -385,7 +385,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full liquid-glass-pill text-blue-900 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-blue-700" />
               <span>Event Showcase</span>
             </div>
@@ -417,7 +417,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       {/* 7. WHY CHOOSE EVENTSRENTALS.IO */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full liquid-glass-pill text-blue-900 text-xs font-bold uppercase tracking-wider">
             <ShieldCheck className="w-3.5 h-3.5 text-blue-700" />
             <span>Why Hosts Choose Us</span>
           </div>
@@ -433,9 +433,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {trustHighlights.map((item, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-3 hover:border-blue-300 transition-all duration-200"
+              className="liquid-glass-interactive rounded-3xl p-6 sm:p-7 space-y-3"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#0b192c] text-blue-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-b from-[#0b192c] to-[#122543] text-blue-400 flex items-center justify-center font-bold shadow-xs border border-white/20">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-[#0b192c] text-base">{item.title}</h3>
@@ -448,7 +448,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 8. VERIFIED REVIEWS */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200">
+      <section className="py-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div className="space-y-1">
@@ -472,7 +472,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {TESTIMONIALS_DATA.map((t) => (
               <div
                 key={t.id}
-                className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between"
+                className="liquid-glass-interactive rounded-3xl p-6 space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center gap-1 text-amber-500">
@@ -485,11 +485,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-100 flex items-center gap-3">
+                <div className="pt-3 border-t border-white/60 flex items-center gap-3">
                   <img
                     src={t.avatar}
                     alt={t.author}
-                    className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                    className="w-10 h-10 rounded-full object-cover border border-white/80 shadow-xs"
                   />
                   <div>
                     <h3 className="font-bold text-xs text-[#0b192c]">{t.author}</h3>
@@ -505,7 +505,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       {/* 9. FAQ SECTION */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-3 mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full liquid-glass-pill text-blue-900 text-xs font-bold uppercase tracking-wider">
             <HelpCircle className="w-3.5 h-3.5 text-blue-700" />
             <span>Frequently Asked Questions</span>
           </div>
@@ -520,17 +520,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                className="liquid-glass rounded-2xl overflow-hidden transition-all"
               >
                 <button
                   onClick={() => toggleFaq(index)}
                   className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-[#0b192c] hover:text-blue-700 transition-colors cursor-pointer"
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-blue-700' : 'text-slate-400'}`} />
+                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-700' : 'text-slate-400'}`} />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-white/60 animate-fast-in">
                     {faq.answer}
                   </div>
                 )}
@@ -549,9 +549,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 10. FINAL DARK BLUE TRUST CALL TO ACTION */}
+      {/* 10. FINAL DARK BLUE LIQUID GLASS CALL TO ACTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0b192c] text-white rounded-3xl p-8 sm:p-14 text-center space-y-6 shadow-2xl border border-slate-800">
+        <div className="liquid-glass-dark text-white rounded-3xl p-8 sm:p-14 text-center space-y-6">
           <div className="max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
               Direct Dispatch &amp; Schedule Hold
@@ -568,7 +568,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <button
               onClick={() => onOpenBookingModal()}
-              className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="liquid-btn-primary w-full sm:w-auto px-8 py-4 text-white font-bold text-base rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Calendar className="w-5 h-5 text-white" />
               <span>Book Your Event Now</span>
@@ -576,7 +576,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
             <button
               onClick={() => onNavigate('contact')}
-              className="w-full sm:w-auto px-7 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold text-base rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-bold text-base rounded-2xl border border-white/20 backdrop-blur-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <span>Contact Dispatch Team</span>
             </button>

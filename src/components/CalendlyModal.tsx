@@ -145,43 +145,43 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-md overflow-y-auto">
       <div 
-        className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-6 max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-3xl liquid-glass rounded-3xl overflow-hidden my-6 max-h-[90vh] flex flex-col shadow-[0_25px_70px_-15px_rgba(11,25,44,0.25)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div className="bg-[#0b192c] text-white p-5 sm:p-6 flex items-center justify-between shrink-0 border-b border-slate-800">
+        {/* Modal Header - Liquid Glass Dark */}
+        <div className="liquid-glass-dark text-white p-5 sm:p-6 flex items-center justify-between shrink-0 rounded-none border-x-0 border-t-0">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-300 bg-blue-500/20 px-2.5 py-0.5 rounded-full border border-blue-400/30 backdrop-blur-md">
                 Live Calendly Booking
               </span>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-300">
                 Punctual Delivery &amp; Full Setup
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-white">
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
               {serviceName || 'Reserve Your Bouncy Castle & Popcorn Cart'}
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="bg-slate-100 p-1.5 flex gap-1 border-b border-slate-200 text-xs font-bold shrink-0">
+        {/* Tab Switcher - Liquid Glass Container */}
+        <div className="bg-white/40 backdrop-blur-md p-1.5 flex gap-1 border-b border-white/60 text-xs font-bold shrink-0">
           <button
             onClick={() => setActiveTab('interactive')}
             className={`flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer ${
               activeTab === 'interactive' 
-                ? 'bg-white text-[#0b192c] shadow-xs' 
+                ? 'bg-white text-[#0b192c] shadow-[0_2px_8px_rgba(11,25,44,0.08)] font-bold border border-white/80' 
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -191,7 +191,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
             onClick={() => setActiveTab('calendly-embed')}
             className={`flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'calendly-embed' 
-                ? 'bg-white text-[#0b192c] shadow-xs' 
+                ? 'bg-white text-[#0b192c] shadow-[0_2px_8px_rgba(11,25,44,0.08)] font-bold border border-white/80' 
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -205,7 +205,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
           {activeTab === 'calendly-embed' ? (
             /* Calendly External / Embed Screen */
             <div className="text-center py-10 space-y-6">
-              <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto border border-blue-200">
+              <div className="w-16 h-16 rounded-2xl liquid-glass text-blue-700 flex items-center justify-center mx-auto shadow-xs">
                 <Calendar className="w-8 h-8" />
               </div>
 
@@ -221,14 +221,14 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
                   onClick={handleLaunchOfficialPopup}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="liquid-btn-dark w-full sm:w-auto px-6 py-3.5 text-white font-bold text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
                   <ExternalLink className="w-4 h-4 text-blue-400" />
                   <span>Launch Official Calendly Popup</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('interactive')}
-                  className="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-3.5 bg-white/70 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm rounded-2xl border border-white/90 shadow-xs transition-colors cursor-pointer"
                 >
                   Use Direct Quick Form
                 </button>
@@ -237,7 +237,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
           ) : isSubmitted ? (
             /* Confirmation Success State */
             <div className="text-center py-10 space-y-5">
-              <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-600 border border-emerald-300/40 flex items-center justify-center mx-auto shadow-xs">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 
@@ -250,7 +250,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                 </p>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 max-w-md mx-auto text-left text-xs space-y-2">
+              <div className="liquid-glass p-5 rounded-2xl max-w-md mx-auto text-left text-xs space-y-2.5">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Contact:</span>
                   <span className="font-semibold text-slate-800">{email} • {phone}</span>
@@ -273,7 +273,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="px-6 py-3 bg-[#0b192c] hover:bg-[#122543] text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all"
+                className="liquid-btn-dark px-7 py-3 text-white font-bold text-xs rounded-2xl shadow-md cursor-pointer transition-all active:scale-95"
               >
                 Done &amp; Return to Page
               </button>
@@ -297,15 +297,15 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                         onClick={() => toggleServiceSelection(service.id)}
                         className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-blue-50/80 border-blue-600 text-blue-950 font-bold ring-1 ring-blue-500/30'
-                            : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                            ? 'bg-blue-50/90 border-blue-400 text-blue-950 font-bold shadow-[0_2px_10px_rgba(37,99,235,0.12)]'
+                            : 'bg-white/50 border-white/80 text-slate-600 hover:bg-white/80'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
                           <img
                             src={service.heroImage}
                             alt=""
-                            className="w-10 h-10 rounded-xl object-cover"
+                            className="w-10 h-10 rounded-xl object-cover shadow-xs"
                           />
                           <div>
                             <p className="text-xs leading-tight">{service.name}</p>
@@ -330,7 +330,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                     required
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900 cursor-pointer"
                   />
                 </div>
 
@@ -339,7 +339,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                   <select
                     value={selectedTimeSlot}
                     onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900 cursor-pointer"
                   >
                     <option>08:00 AM – 10:00 AM (Early Setup)</option>
                     <option>10:00 AM – 12:00 PM (Morning Party)</option>
@@ -360,7 +360,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                     placeholder="e.g. Sarah Jenkins"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900"
                   />
                 </div>
 
@@ -372,7 +372,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                     placeholder="e.g. sarah@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900"
                   />
                 </div>
 
@@ -384,7 +384,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                     placeholder="e.g. (555) 000-1234"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900"
                   />
                 </div>
               </div>
@@ -396,7 +396,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                   <select
                     value={setupSurface}
                     onChange={(e) => setSetupSurface(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900 cursor-pointer"
                   >
                     <option>Grass / Turf (18&quot; Steel Stakes)</option>
                     <option>Concrete / Asphalt (150lb Sandbag Ballasts)</option>
@@ -413,7 +413,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                     placeholder="e.g. 1245 Maplewood Ave, North Suburbs"
                     value={eventLocation}
                     onChange={(e) => setEventLocation(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="liquid-glass-input w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-900"
                   />
                 </div>
               </div>
@@ -428,7 +428,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                   placeholder="e.g. Gate is 4ft wide, power outlet is on back patio within 30ft..."
                   value={additionalNotes}
                   onChange={(e) => setAdditionalNotes(e.target.value)}
-                  className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="liquid-glass-input w-full p-3 rounded-xl text-xs text-slate-900"
                 />
               </div>
 
@@ -437,7 +437,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:flex-1 py-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="liquid-btn-dark w-full sm:flex-1 py-4 text-white font-bold text-sm rounded-2xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-95"
                 >
                   <Calendar className="w-4 h-4 text-blue-400" />
                   <span>{isSubmitting ? 'Routing to Dispatch...' : 'Confirm Delivery Date Hold'}</span>
@@ -446,7 +446,7 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
                 <button
                   type="button"
                   onClick={handleLaunchOfficialPopup}
-                  className="w-full sm:w-auto px-5 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-4 bg-white/70 hover:bg-white text-slate-800 font-bold text-xs rounded-2xl border border-white/90 shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                 >
                   <ExternalLink className="w-3.5 h-3.5 text-slate-600" />
                   <span>Open Calendly Window</span>
@@ -457,12 +457,12 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({
         </div>
 
         {/* Modal Trust Footer */}
-        <div className="bg-slate-50 p-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 shrink-0">
-          <span className="flex items-center gap-1.5">
+        <div className="bg-white/40 backdrop-blur-md p-4 border-t border-white/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 shrink-0">
+          <span className="flex items-center gap-1.5 font-medium">
             <Clock className="w-3.5 h-3.5 text-blue-600" />
             45–60 min punctual setup buffer on every booking
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 font-medium">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             100% child-safe hospital-grade sanitization
           </span>

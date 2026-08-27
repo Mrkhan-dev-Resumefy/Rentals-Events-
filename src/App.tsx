@@ -70,12 +70,20 @@ export default function App() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen flex flex-col bg-slate-50/80 text-slate-900 font-sans selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
-        {/* Subtle Ambient Background Gradients for Clean Trust Theme */}
+      <div className="min-h-screen flex flex-col bg-[#f5f7fc] text-slate-900 font-sans selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
+        {/* Apple Fluid Liquid Mesh Ambient Background */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl opacity-50" />
-          <div className="absolute top-10 right-0 w-[450px] h-[450px] bg-slate-200/40 rounded-full blur-3xl opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-slate-100/40" />
+          {/* Liquid Orb 1 - Azure / Cyan Light */}
+          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-blue-300/35 via-sky-200/30 to-indigo-200/20 rounded-full blur-[100px] animate-liquid-1" />
+          
+          {/* Liquid Orb 2 - Periwinkle / Violet Shimmer */}
+          <div className="absolute top-1/4 -right-48 w-[650px] h-[650px] bg-gradient-to-bl from-indigo-200/35 via-blue-200/30 to-sky-100/20 rounded-full blur-[120px] animate-liquid-2" />
+          
+          {/* Liquid Orb 3 - Center Gentle Refraction */}
+          <div className="absolute top-2/3 left-1/5 w-[550px] h-[550px] bg-gradient-to-r from-sky-200/25 via-blue-100/30 to-slate-200/30 rounded-full blur-[110px] animate-liquid-3" />
+          
+          {/* Specular Liquid Noise & Translucent Gradient Layer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/40 to-[#f5f7fc]/80 backdrop-blur-[1px]" />
         </div>
 
         {/* Navigation Bar */}
