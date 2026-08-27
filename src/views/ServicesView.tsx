@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Sparkles, Calendar, Search } from 'lucide-react';
+import React from 'react';
+import { motion } from 'motion/react';
+import { Layers, Calendar, Check, ArrowRight, ShieldCheck, Zap, Truck, CheckCircle2 } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
+import { PACKAGES_DATA } from '../data/packagesData';
 import { ServiceItem } from '../types';
-import { MultiServiceCustomizer } from '../components/MultiServiceCustomizer';
 
 interface ServicesViewProps {
   onNavigate: (view: string, serviceId?: string) => void;
@@ -13,161 +14,140 @@ export const ServicesView: React.FC<ServicesViewProps> = ({
   onNavigate,
   onOpenBookingModal,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const categories = [
-    { id: 'all', label: 'All Services & Gear' },
-    { id: 'inflatables', label: 'Castles & Inflatables' },
-    { id: 'food-trucks', label: 'Food Trucks & Catering' },
-    { id: 'concessions', label: 'Popcorn & Sweet Treats' },
-    { id: 'entertainment', label: 'Entertainment & Fun' },
-    { id: 'party-gear', label: 'Tents & Event Infrastructure' },
-  ];
-
-  const filteredServices = SERVICES_DATA.filter((item: ServiceItem) => {
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.fullDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.recommendedFor.some(r => r.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
-
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 pb-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-14 pb-24">
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Complete Event Inventory</span>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="text-center max-w-3xl mx-auto space-y-4"
+      >
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-900 text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-xs">
+          <Layers className="w-3.5 h-3.5 text-blue-700" />
+          <span>Full Equipment Specifications</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Event Services & Rentals
+        <h1 className="text-4xl sm:text-5xl font-black text-[#0b192c] tracking-tight">
+          Commercial Bouncy Castle &amp; Popcorn Cart
         </h1>
-        <p className="text-slate-300 text-base leading-relaxed">
-          Explore our certified jumping castles, gourmet food trucks, nostalgic concession machines, and party infrastructure. Available for individual hire or bundled packages.
+        <p className="text-slate-600 text-base leading-relaxed">
+          Commercial-grade sanitized equipment delivered, anchored, and tested on-site by our punctual dispatch crew. Available individually or bundled in our Party Combo.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Filter & Search Bar in Liquid Glass */}
-      <div className="space-y-4 bg-slate-950/60 backdrop-blur-2xl p-4 sm:p-6 rounded-3xl border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)]">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          {/* Category tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-4 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer backdrop-blur-md ${
-                  selectedCategory === cat.id
-                    ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold shadow-md shadow-indigo-500/20 border border-white/30'
-                    : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Search box */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search castles, food trucks, popcorn..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/15 rounded-2xl text-xs font-medium text-white focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-cyan-400 backdrop-blur-md placeholder:text-slate-500"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Services Grid with Liquid Glass Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredServices.map((service: ServiceItem) => (
-          <div
+      {/* Services Showcase Cards */}
+      <div className="space-y-12">
+        {SERVICES_DATA.map((service: ServiceItem, index: number) => (
+          <motion.div
             key={service.id}
-            className="bg-slate-950/60 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:border-cyan-400/60 hover:shadow-[0_25px_50px_-10px_rgba(6,182,212,0.25)] hover:scale-[1.02] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group relative"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.55, delay: index * 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className={`liquid-glass rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col ${
+              index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
+            } gap-8 items-center transition-all`}
           >
-            {/* Ambient light sheen on hover */}
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-            <div className="relative z-10">
-              {/* Image Banner */}
-              <div className="relative aspect-16/10 overflow-hidden bg-slate-900">
-                <img
-                  src={service.heroImage}
-                  alt={service.name}
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-                {service.badge && (
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold uppercase px-2.5 py-1 rounded-lg shadow-md border border-white/20">
-                    {service.badge}
-                  </div>
-                )}
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-black/60 backdrop-blur-md rounded border border-white/10 text-cyan-300">
-                    {service.category}
-                  </span>
+            {/* Left/Right Visual */}
+            <div className="w-full lg:w-1/2 aspect-16/10 rounded-2xl overflow-hidden bg-slate-100/60 relative group shrink-0 border border-white/60 shadow-xs">
+              <img
+                src={service.heroImage}
+                alt={service.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              {service.badge && (
+                <div className="absolute top-3 left-3 bg-[#0b192c]/85 text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-xl shadow-md border border-white/10 backdrop-blur-md">
+                  {service.badge}
                 </div>
-              </div>
-
-              {/* Body */}
-              <div className="p-6 space-y-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
-                    {service.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-1.5">
-                    {service.shortDescription}
-                  </p>
-                </div>
-
-                {/* Specifications Preview */}
-                <div className="space-y-1.5 bg-white/5 backdrop-blur-md p-3 rounded-2xl border border-white/10 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-colors text-xs">
-                  <p className="font-bold text-cyan-400 text-[11px] uppercase tracking-wider">
-                    Key Specifications:
-                  </p>
-                  <ul className="space-y-1 text-slate-300 text-[11px]">
-                    {service.specifications.slice(0, 3).map((spec, i) => (
-                      <li key={i} className="flex items-center gap-1.5 truncate">
-                        <span className="font-semibold text-white">{spec.label}:</span> {spec.value}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              )}
             </div>
 
-            {/* Actions */}
-            <div className="p-6 pt-0 border-t border-white/10 mt-2 relative z-10">
-              <div className="pt-4 flex items-center gap-2">
-                <button
-                  onClick={() => onNavigate('service-detail', service.id)}
-                  className="flex-1 py-3 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all text-center cursor-pointer border border-white/10 hover:border-white/25 active:scale-95"
-                >
-                  Full Specs & Details
-                </button>
+            {/* Content Details */}
+            <div className="w-full lg:w-1/2 space-y-5">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1">
+                  {service.category === 'inflatables' ? 'Commercial Inflatable' : 'Vintage Concession Station'}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-[#0b192c] leading-tight tracking-tight">
+                  {service.name}
+                </h2>
+              </div>
+
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {service.fullDescription}
+              </p>
+
+              {/* Technical Specifications Grid */}
+              <div className="grid grid-cols-2 gap-3 bg-white/50 backdrop-blur-md p-4 rounded-2xl border border-white/80 text-xs shadow-xs">
+                {service.specifications.map((spec, i) => (
+                  <div key={i}>
+                    <span className="text-[10px] text-slate-500 block uppercase font-bold">{spec.label}</span>
+                    <span className="font-semibold text-slate-800">{spec.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Key Features Bullets */}
+              <div className="space-y-1.5">
+                <p className="text-xs font-bold text-[#0b192c] uppercase tracking-wider">Features &amp; Safety:</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+                  {service.features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      <span>{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => onOpenBookingModal(service.id)}
-                  className="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:opacity-95 active:scale-95 text-white font-bold text-xs transition-all text-center shadow-md cursor-pointer border border-white/20"
+                  className="liquid-btn-dark w-full sm:w-auto px-6 py-3.5 text-white font-bold text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
-                  {service.ctaText}
+                  <Calendar className="w-4 h-4 text-blue-400" />
+                  <span>{service.ctaText} (Calendly)</span>
+                </button>
+                <button
+                  onClick={() => onNavigate('service-detail', service.id)}
+                  className="w-full sm:w-auto px-5 py-3.5 bg-white/70 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm rounded-2xl transition-colors cursor-pointer border border-white/90 shadow-xs active:scale-95 text-center"
+                >
+                  View Full Specs &amp; Requirements →
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      {/* Package Customizer Section */}
-      <div className="pt-6">
-        <MultiServiceCustomizer
-          onRequestPackage={(selectedIds) => onOpenBookingModal(undefined, undefined, selectedIds)}
-        />
-      </div>
+      {/* Combo Banner - Liquid Glass Dark */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="liquid-glass-dark text-white rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6"
+      >
+        <div className="space-y-2 text-center sm:text-left">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-400">Save with Our Party Combo</span>
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Need Both the Bouncy Castle &amp; Popcorn Cart?
+          </h3>
+          <p className="text-slate-300 text-xs sm:text-sm max-w-xl">
+            Book our Ultimate Bounce &amp; Pop Party Combo for a single coordinated delivery and discounted package pricing.
+          </p>
+        </div>
+
+        <button
+          onClick={() => onNavigate('packages')}
+          className="liquid-btn-primary px-7 py-4 text-white font-bold text-sm rounded-2xl shrink-0 cursor-pointer flex items-center gap-2 active:scale-95"
+        >
+          <span>View Party Combo</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </motion.div>
     </div>
   );
 };

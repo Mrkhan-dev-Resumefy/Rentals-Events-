@@ -1,7 +1,5 @@
 import React from 'react';
-import { 
-  ArrowLeft, Calendar, Sparkles
-} from 'lucide-react';
+import { ArrowLeft, Calendar, Sparkles, ShieldCheck } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
 import { ServiceItem } from '../types';
 import { SafetySection } from '../components/SafetySection';
@@ -20,40 +18,38 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
   const service: ServiceItem = SERVICES_DATA.find(s => s.id === serviceId) || SERVICES_DATA[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 pb-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-14 pb-24">
       {/* Back Button & Breadcrumbs */}
-      <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+      <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
         <button
           onClick={() => onNavigate('services')}
-          className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer"
+          className="flex items-center gap-1 text-blue-700 hover:text-blue-800 transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to All Services</span>
+          <span>Back to All Equipment</span>
         </button>
         <span>/</span>
         <span className="capitalize">{service.category}</span>
         <span>/</span>
-        <span className="text-white truncate max-w-xs">{service.name}</span>
+        <span className="text-[#0b192c] truncate max-w-xs">{service.name}</span>
       </div>
 
-      {/* Main Hero & Overview in Liquid Glass */}
+      {/* Main Hero & Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        {/* Left Column: Image Gallery Montage */}
+        {/* Left Column: Image Gallery */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="relative aspect-16/10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/20 bg-slate-900 p-1">
-            <div className="relative w-full h-full rounded-2xl overflow-hidden">
-              <img
-                src={service.heroImage}
-                alt={service.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-              {service.badge && (
-                <div className="absolute top-4 left-4 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-xl shadow-md border border-white/20">
-                  {service.badge}
-                </div>
-              )}
-            </div>
+          <div className="relative aspect-16/10 rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
+            <img
+              src={service.heroImage}
+              alt={service.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+            {service.badge && (
+              <div className="absolute top-4 left-4 bg-[#0b192c] text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-xl shadow-md border border-slate-800">
+                {service.badge}
+              </div>
+            )}
           </div>
 
           {/* Secondary images */}
@@ -62,12 +58,12 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
               {service.gallery.map((imgUrl, i) => (
                 <div
                   key={i}
-                  className="relative aspect-4/3 rounded-2xl overflow-hidden border border-white/15 hover:border-cyan-400/60 shadow-sm bg-slate-900 p-0.5 hover:scale-105 transition-all duration-300 group cursor-pointer"
+                  className="relative aspect-4/3 rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100 hover:scale-105 transition-all duration-200 group cursor-pointer"
                 >
                   <img
                     src={imgUrl}
                     alt={`${service.name} preview ${i + 1}`}
-                    className="w-full h-full object-cover rounded-xl group-hover:scale-108 transition-transform duration-500"
+                    className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
               ))}
@@ -78,70 +74,70 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
         {/* Right Column: Key Details & Booking Card */}
         <div className="lg:col-span-5 space-y-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-blue-700" />
               <span className="capitalize">{service.category}</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[#0b192c] tracking-tight leading-tight">
               {service.name}
             </h1>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed">
               {service.fullDescription}
             </p>
           </div>
 
-          {/* Booking Action Card in Liquid Glass */}
-          <div className="bg-slate-950/70 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-cyan-400/40 hover:shadow-[0_25px_60px_rgba(6,182,212,0.18)] transition-all duration-300 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          {/* Booking Action Card */}
+          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <span className="text-xs text-slate-400">Booking Status</span>
-                <p className="font-bold text-sm text-emerald-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Available for 2026 Season
+                <span className="text-xs text-slate-500">Dispatch Status</span>
+                <p className="font-bold text-sm text-emerald-800 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Available for 2026 Bookings
                 </p>
               </div>
-              <span className="text-xs font-mono bg-white/10 px-2 py-1 rounded-lg text-slate-300 border border-white/10">
-                Direct Dispatch
+              <span className="text-xs font-mono bg-blue-50 text-blue-900 px-2.5 py-1 rounded-lg border border-blue-200 font-bold">
+                Calendly Direct
               </span>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Click below to check real-time availability on our Calendly schedule or request a turnkey event quote.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Check real-time date availability on our Calendly schedule or submit a direct delivery request.
             </p>
 
             <div className="space-y-2 pt-1">
               <button
                 onClick={() => onOpenBookingModal(service.id)}
-                className="w-full py-3.5 px-4 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:opacity-95 active:scale-95 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20"
+                className="w-full py-3.5 px-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Calendar className="w-4 h-4" />
+                <Calendar className="w-4 h-4 text-blue-400" />
                 <span>{service.ctaText}</span>
               </button>
 
               <button
                 onClick={() => onNavigate('contact')}
-                className="w-full py-2.5 px-4 bg-white/10 hover:bg-white/15 text-white font-semibold text-xs rounded-xl border border-white/15 hover:border-white/25 active:scale-95 transition-all cursor-pointer"
+                className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs rounded-xl border border-slate-200 active:scale-95 transition-colors cursor-pointer"
               >
                 Ask Dispatch a Question About This Item
               </button>
             </div>
 
-            <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10">
-              <span>✓ Free bad-weather rescheduling</span>
-              <span>✓ Inspected commercial grade</span>
+            <div className="pt-2 flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-100">
+              <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Free bad-weather rescheduling</span>
+              <span>• Sanitized & certified</span>
             </div>
           </div>
 
           {/* Recommended For List */}
-          <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/15 hover:border-cyan-400/40 hover:bg-white/[0.08] transition-all duration-300 space-y-2.5">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-slate-200">
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2.5">
+            <h4 className="font-bold text-xs uppercase tracking-wider text-[#0b192c]">
               Ideal Occasions & Event Types:
             </h4>
             <div className="flex flex-wrap gap-1.5">
               {service.recommendedFor.map((rec, i) => (
                 <span
                   key={i}
-                  className="px-2.5 py-1 bg-white/10 text-white rounded-lg text-xs font-medium border border-white/10 hover:bg-white/20 hover:border-cyan-400/30 transition-colors"
+                  className="px-2.5 py-1 bg-white text-slate-700 rounded-lg text-xs font-semibold border border-slate-200 shadow-sm"
                 >
                   {rec}
                 </span>
@@ -151,24 +147,24 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
         </div>
       </div>
 
-      {/* Specifications & Setup Requirements in Liquid Glass */}
-      <div className="bg-slate-950/60 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)] space-y-6">
-        <div className="border-b border-white/10 pb-4">
-          <h3 className="text-2xl font-bold text-white">
+      {/* Specifications & Setup Requirements */}
+      <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md space-y-6">
+        <div className="border-b border-slate-100 pb-4">
+          <h3 className="text-2xl font-black text-[#0b192c]">
             Technical Specifications & Venue Requirements
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Please ensure your venue meets these clear guidelines prior to arrival.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {service.specifications.map((spec, i) => (
-            <div key={i} className="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/[0.08] hover:scale-[1.02] transition-all duration-200 space-y-1">
-              <span className="text-[11px] uppercase font-bold text-cyan-400 block">
+            <div key={i} className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-1">
+              <span className="text-[11px] uppercase font-bold text-blue-900 block">
                 {spec.label}
               </span>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-[#0b192c]">
                 {spec.value}
               </p>
             </div>
@@ -177,30 +173,30 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
 
         {/* Requirements Details */}
         {service.requirements && (
-          <div className="pt-4 border-t border-white/10 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider text-cyan-300">
+          <div className="pt-4 border-t border-slate-100 space-y-3">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-blue-900">
               Site & Power Logistics
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-              <div className="bg-white/5 p-3 rounded-xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.02] transition-all duration-200">
-                <span className="font-bold text-white block mb-1">Space:</span>
-                <span className="text-slate-300">{service.requirements.space}</span>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <span className="font-bold text-[#0b192c] block mb-1">Space:</span>
+                <span className="text-slate-600">{service.requirements.space}</span>
               </div>
-              <div className="bg-white/5 p-3 rounded-xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.02] transition-all duration-200">
-                <span className="font-bold text-white block mb-1">Surface:</span>
-                <span className="text-slate-300">{service.requirements.surface}</span>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <span className="font-bold text-[#0b192c] block mb-1">Surface:</span>
+                <span className="text-slate-600">{service.requirements.surface}</span>
               </div>
-              <div className="bg-white/5 p-3 rounded-xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.02] transition-all duration-200">
-                <span className="font-bold text-white block mb-1">Power:</span>
-                <span className="text-slate-300">{service.requirements.power}</span>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <span className="font-bold text-[#0b192c] block mb-1">Power:</span>
+                <span className="text-slate-600">{service.requirements.power}</span>
               </div>
-              <div className="bg-white/5 p-3 rounded-xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.02] transition-all duration-200">
-                <span className="font-bold text-white block mb-1">Access:</span>
-                <span className="text-slate-300">{service.requirements.access}</span>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <span className="font-bold text-[#0b192c] block mb-1">Access:</span>
+                <span className="text-slate-600">{service.requirements.access}</span>
               </div>
-              <div className="bg-white/5 p-3 rounded-xl border border-white/10 hover:border-cyan-400/40 hover:bg-white/10 hover:scale-[1.02] transition-all duration-200">
-                <span className="font-bold text-white block mb-1">Weather:</span>
-                <span className="text-slate-300">{service.requirements.weather}</span>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <span className="font-bold text-[#0b192c] block mb-1">Weather:</span>
+                <span className="text-slate-600">{service.requirements.weather}</span>
               </div>
             </div>
           </div>
@@ -214,10 +210,10 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
       {service.faqs && service.faqs.length > 0 && (
         <div className="space-y-6">
           <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-900">
               Specific Inquiries
             </span>
-            <h3 className="text-2xl font-bold text-white">
+            <h3 className="text-2xl font-bold text-[#0b192c]">
               Questions About {service.name}
             </h3>
           </div>
@@ -226,10 +222,10 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
             {service.faqs.map((faq, i) => (
               <div
                 key={i}
-                className="bg-slate-950/60 backdrop-blur-2xl rounded-2xl p-5 border border-white/15 hover:border-cyan-400/50 hover:shadow-[0_10px_25px_rgba(6,182,212,0.15)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 space-y-2 group"
+                className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2"
               >
-                <h4 className="font-bold text-sm text-white group-hover:text-cyan-300 transition-colors">{faq.question}</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">{faq.answer}</p>
+                <h4 className="font-bold text-sm text-[#0b192c]">{faq.question}</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Sparkles, Calendar, CheckCircle2, Users, Clock } from 'lucide-react';
+import { Sparkles, Calendar, CheckCircle2, Users, Clock, ArrowRight, ShieldCheck, Check } from 'lucide-react';
 import { PACKAGES_DATA } from '../data/packagesData';
-import { MultiServiceCustomizer } from '../components/MultiServiceCustomizer';
 
 interface PackagesViewProps {
   onNavigate: (view: string, serviceId?: string) => void;
@@ -16,118 +15,130 @@ export const PackagesView: React.FC<PackagesViewProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 pb-24">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Curated Event Bundles</span>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-blue-700" />
+          <span>All-In-One Party Package</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Event Packages & Bundles
+        <h1 className="text-4xl sm:text-5xl font-black text-[#0b192c] tracking-tight">
+          Ultimate Bounce &amp; Pop Party Combo
         </h1>
-        <p className="text-slate-300 text-base leading-relaxed">
-          Save time and eliminate stress with our synchronized party packages. Designed for maximum fun, seamless logistics, and one unified point of contact.
+        <p className="text-slate-600 text-base leading-relaxed">
+          The complete children&apos;s entertainment bundle. Pair our sanitized commercial bouncy castle with our vintage retro popcorn cart for maximum fun and combo savings.
         </p>
       </div>
 
-      {/* Packages Grid in Liquid Glass */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {PACKAGES_DATA.map((pkg, idx) => (
-          <div
-            key={pkg.id}
-            className={`bg-slate-950/60 backdrop-blur-2xl rounded-3xl overflow-hidden border transition-all duration-300 flex flex-col justify-between shadow-[0_15px_35px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_50px_-10px_rgba(6,182,212,0.25)] hover:scale-[1.02] hover:-translate-y-1.5 group relative ${
-              idx === 0 ? 'border-cyan-400/60 ring-2 ring-cyan-400/30 hover:border-cyan-300' : 'border-white/15 hover:border-cyan-400/60'
-            }`}
-          >
-            {/* Ambient hover glow */}
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-transparent to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-            {/* Top Banner */}
-            <div className="relative z-10">
-              <div className="relative aspect-16/9 overflow-hidden bg-slate-900">
+      {/* Featured Combo Card */}
+      {PACKAGES_DATA.map((pkg) => (
+        <div
+          key={pkg.id}
+          className="bg-white rounded-3xl overflow-hidden border border-blue-200 ring-2 ring-blue-100 shadow-xl p-8 sm:p-12 space-y-8"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Visual & Highlights */}
+            <div className="lg:col-span-6 space-y-4">
+              <div className="relative aspect-16/10 rounded-2xl overflow-hidden shadow-md">
                 <img
                   src={pkg.image}
                   alt={pkg.name}
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-                {pkg.badge && (
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-xl shadow-md border border-white/20">
-                    {pkg.badge}
-                  </div>
-                )}
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-xs font-semibold text-cyan-300">
-                    {pkg.idealFor}
-                  </span>
+                <div className="absolute top-3 left-3 bg-[#0b192c] text-blue-300 text-xs font-bold uppercase px-3 py-1 rounded-md shadow-md border border-slate-800">
+                  {pkg.badge}
                 </div>
               </div>
 
-              {/* Body */}
-              <div className="p-6 space-y-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
-                    {pkg.name}
-                  </h3>
-                  <p className="text-xs font-medium text-cyan-400 mt-0.5">
-                    {pkg.tagline}
-                  </p>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2">
-                    {pkg.description}
-                  </p>
-                </div>
-
-                {/* Specs */}
-                <div className="grid grid-cols-2 gap-2 text-xs bg-white/5 backdrop-blur-md p-2.5 rounded-2xl border border-white/10 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-colors">
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <Users className="w-3.5 h-3.5 text-cyan-400" />
-                    <span className="font-semibold">{pkg.estimatedGuests}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                    <span className="font-semibold">{pkg.duration}</span>
+              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs">
+                <div className="flex items-center gap-2 text-slate-700">
+                  <Users className="w-4 h-4 text-blue-700 shrink-0" />
+                  <div>
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Party Size</span>
+                    <span className="font-bold text-slate-800">{pkg.estimatedGuests}</span>
                   </div>
                 </div>
-
-                {/* Included items */}
-                <div className="space-y-2 pt-2 border-t border-white/10">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                    Package Inclusions:
-                  </p>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
-                    {pkg.includedServices.map((inc, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                        <span>{inc}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex items-center gap-2 text-slate-700">
+                  <Clock className="w-4 h-4 text-blue-700 shrink-0" />
+                  <div>
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Duration</span>
+                    <span className="font-bold text-slate-800">{pkg.duration}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom CTA */}
-            <div className="p-6 pt-0 border-t border-white/10 mt-4 relative z-10">
-              <div className="pt-4 space-y-2">
-                <button
-                  onClick={() => onOpenBookingModal(undefined, undefined, pkg.serviceIds)}
-                  className="w-full py-3.5 px-4 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:opacity-95 active:scale-95 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20"
-                >
-                  <Calendar className="w-4 h-4 text-white" />
-                  <span>Request Package Pricing</span>
-                </button>
-                <p className="text-[10px] text-slate-400 text-center">
-                  * Custom quotes provided based on event duration & date.
+            {/* Details & Inclusions */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <h2 className="text-3xl font-black text-[#0b192c] tracking-tight">
+                  {pkg.name}
+                </h2>
+                <p className="text-sm font-semibold text-blue-900 mt-1">
+                  {pkg.tagline}
                 </p>
+                <p className="text-sm text-slate-600 leading-relaxed mt-3">
+                  {pkg.description}
+                </p>
+              </div>
+
+              <div className="space-y-2.5">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#0b192c]">
+                  Everything Included in the Combo:
+                </p>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
+                  {pkg.includedServices.map((inc, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{inc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-4 flex flex-col sm:flex-row items-center gap-3 border-t border-slate-100">
+                <button
+                  onClick={() => onOpenBookingModal(undefined, undefined, ['standard-jumping-castle', 'standard-popcorn-cart'])}
+                  className="w-full sm:w-auto px-8 py-4 bg-[#0b192c] hover:bg-[#122543] active:scale-95 text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Calendar className="w-4 h-4 text-blue-400" />
+                  <span>Book Party Combo on Calendly</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => onNavigate('services')}
+                  className="w-full sm:w-auto px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer text-center"
+                >
+                  View Individual Specs
+                </button>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
 
-      {/* Multi-Service Builder */}
-      <div>
-        <MultiServiceCustomizer
-          onRequestPackage={(selectedIds) => onOpenBookingModal(undefined, undefined, selectedIds)}
-        />
+      {/* Trust Highlights for Combos */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto font-bold">
+            <Clock className="w-5 h-5" />
+          </div>
+          <h3 className="font-bold text-[#0b192c] text-sm">Single Coordinated Delivery</h3>
+          <p className="text-xs text-slate-600">Both the castle and popcorn cart arrive together 45–60 min before your party start.</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto font-bold">
+            <Check className="w-5 h-5" />
+          </div>
+          <h3 className="font-bold text-[#0b192c] text-sm">100 Fresh Servings Included</h3>
+          <p className="text-xs text-slate-600">Pre-measured popping corn, golden coconut oil, theater seasoning, and vintage striped bags.</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto font-bold">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <h3 className="font-bold text-[#0b192c] text-sm">Free Weather Rescheduling</h3>
+          <p className="text-xs text-slate-600">Zero penalty if storms or rain occur on your party morning. Move to any available open date.</p>
+        </div>
       </div>
     </div>
   );

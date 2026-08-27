@@ -3,7 +3,7 @@ import { BusinessInfo } from '../types';
 export const BUSINESS_CONFIG: BusinessInfo = {
   name: 'EventsRentals.io',
   domain: 'EventsRentals.io',
-  tagline: 'Your Complete Event Experience Partner',
+  tagline: 'Commercial Bouncy Castles & Vintage Popcorn Cart Rentals',
   // Clearly marked editable placeholders as specified in project rules
   phonePlaceholder: '+1 (800) 555-RENT [Configurable Phone]',
   emailPlaceholder: 'hello@eventsrentals.io [Configurable Email]',
@@ -16,12 +16,10 @@ export const CALENDLY_CONFIG = {
   // Base URLs for specific Calendly routing flows
   baseUrl: 'https://calendly.com/eventsrentals',
   serviceFlows: {
-    'food-truck-arrangements': 'https://calendly.com/eventsrentals/food-truck',
     'standard-jumping-castle': 'https://calendly.com/eventsrentals/jumping-castles',
-    'large-jumping-castle': 'https://calendly.com/eventsrentals/jumping-castles',
     'standard-popcorn-cart': 'https://calendly.com/eventsrentals/popcorn-cart',
-    'large-popcorn-cart': 'https://calendly.com/eventsrentals/popcorn-cart',
+    'ultimate-bounce-and-pop-combo': 'https://calendly.com/eventsrentals/party-combo',
     'consultation': 'https://calendly.com/eventsrentals/event-consultation',
-    'packages': 'https://calendly.com/eventsrentals/event-package-consultation',
+    'packages': 'https://calendly.com/eventsrentals/party-combo',
   },
 };
